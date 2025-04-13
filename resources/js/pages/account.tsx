@@ -6,9 +6,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { TextHeading, TextParagraph } from '@/components/ui/text';
 import AuthenticatedLayout from '@/layouts/authenticated-layout';
-import { CogIcon } from 'lucide-react';
 import { useState } from 'react';
-import { toast } from 'sonner';
 import { Link } from '@inertiajs/react';
 
 export default function Account() {
@@ -52,9 +50,6 @@ export default function Account() {
                 </Avatar>
             </div>
             <div className="mt-5 flex gap-2">
-                <Button variant="outline" size="md" onClick={() => toast.info('Hier wordt nog aan gewerkt. Kom later terug!')}>
-                    Profiel bewerken
-                </Button>
                 <Button variant="outline" size="md" asChild>
                     <Link href={route('logout')} method="post">Uitloggen</Link>
                 </Button>
