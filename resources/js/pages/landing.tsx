@@ -15,6 +15,7 @@ type LoginForm = {
 type RegisterForm = {
     name: string;
     email: string;
+    username: string;
     password: string;
     password_confirmation: string;
 };
@@ -90,6 +91,7 @@ function RegisterDrawer() {
     const { data, setData, post, processing, errors, reset } = useForm<Required<RegisterForm>>({
         name: '',
         email: '',
+        username: '',
         password: '',
         password_confirmation: '',
     });
@@ -125,7 +127,6 @@ function RegisterDrawer() {
                                 value={data.name}
                                 onChange={(e) => setData('name', e.target.value)}
                                 disabled={processing}
-                                placeholder="Volledige naam"
                             />
                             <InputError message={errors.name} />
                         </div>
@@ -140,9 +141,22 @@ function RegisterDrawer() {
                                 value={data.email}
                                 onChange={(e) => setData('email', e.target.value)}
                                 disabled={processing}
-                                placeholder="email@voorbeeld.nl"
                             />
                             <InputError message={errors.email} />
+                        </div>
+
+                        <div className="grid gap-2">
+                            <Label htmlFor="email">Gebruikersnaam</Label>
+                            <Input
+                                id="username"
+                                type="text"
+                                tabIndex={3}
+                                autoComplete="username"
+                                value={data.username}
+                                onChange={(e) => setData('username', e.target.value)}
+                                disabled={processing}
+                            />
+                            <InputError message={errors.username} />
                         </div>
 
                         <div className="grid gap-2">
@@ -150,12 +164,11 @@ function RegisterDrawer() {
                             <Input
                                 id="password"
                                 type="password"
-                                tabIndex={3}
+                                tabIndex={4}
                                 autoComplete="new-password"
                                 value={data.password}
                                 onChange={(e) => setData('password', e.target.value)}
                                 disabled={processing}
-                                placeholder="Wachtwoord"
                             />
                             <InputError message={errors.password} />
                         </div>
@@ -165,12 +178,11 @@ function RegisterDrawer() {
                             <Input
                                 id="password_confirmation"
                                 type="password"
-                                tabIndex={4}
+                                tabIndex={5}
                                 autoComplete="new-password"
                                 value={data.password_confirmation}
                                 onChange={(e) => setData('password_confirmation', e.target.value)}
                                 disabled={processing}
-                                placeholder="Wachtwoord herhalen"
                             />
                             <InputError message={errors.password_confirmation} />
                         </div>
@@ -185,6 +197,7 @@ function RegisterDrawer() {
         </Drawer>
     );
 }
+
 export default function Home({ children }: PropsWithChildren) {
     return (
         <div className="relative z-10 mx-auto flex h-dvh w-screen max-w-md justify-center bg-[url(/images/landing-page-background-2.jpg)] bg-cover pt-[33vh] before:absolute before:inset-0 before:z-[-5] before:block before:bg-linear-to-b before:via-zinc-700 before:to-zinc-950 before:opacity-75 before:content-['']">

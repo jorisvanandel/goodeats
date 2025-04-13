@@ -9,6 +9,7 @@ import AuthenticatedLayout from '@/layouts/authenticated-layout';
 import { CogIcon } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { Link } from '@inertiajs/react';
 
 export default function Account() {
     const user = {
@@ -54,8 +55,8 @@ export default function Account() {
                 <Button variant="outline" size="md" onClick={() => toast.info('Hier wordt nog aan gewerkt. Kom later terug!')}>
                     Profiel bewerken
                 </Button>
-                <Button variant="outline" size="md">
-                    <CogIcon />
+                <Button variant="outline" size="md" asChild>
+                    <Link href={route('logout')} method="post">Uitloggen</Link>
                 </Button>
             </div>
             <Tabs className="mt-5" defaultValue="likes">
