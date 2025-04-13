@@ -32,47 +32,17 @@ export default function RestaurantPage({ restaurant }: RestaurantPageProps) {
                             ))}
                         </CarouselContent>
                     </Carousel>
-                    <div className="space-y-4 p-4">
-                        <div className="flex items-center justify-between">
+                    <div className="p-4">
+                        <div>
                             <TextHeading size="xl">{restaurant.name}</TextHeading>
-                            <Button size="sm" variant="outline">
+                            <Button className="mt-2" size="sm" variant="outline">
                                 <LinkIcon />
                                 Bekijk website
                             </Button>
                         </div>
-                        <div>
+                        <div className="mt-6">
                             <TextHeading>Locatie</TextHeading>
-                            <TextParagraph>{restaurant.address}</TextParagraph>
-                            <Skeleton className="mt-2 h-32" />
-                        </div>
-                        <div className="mt-5">
-                            <TextHeading size="sm">Wat je vrienden er van vinden</TextHeading>
-                            <ul className="mt-3 grid gap-2">
-                                <li className="flex items-center gap-2">
-                                    <Avatar>
-                                        <AvatarFallback>CN</AvatarFallback>
-                                    </Avatar>
-                                    <TextParagraph>Sophie de Ruiter wilt hier heen</TextParagraph>
-                                </li>
-                                <li className="flex items-center gap-2">
-                                    <Avatar>
-                                        <AvatarFallback>CN</AvatarFallback>
-                                    </Avatar>
-                                    <TextParagraph>Kees van der Sprek vond dit fantastisch</TextParagraph>
-                                </li>
-                                <li className="flex items-center gap-2">
-                                    <Avatar>
-                                        <AvatarFallback>CN</AvatarFallback>
-                                    </Avatar>
-                                    <TextParagraph>Joris van Andel is hier geweest</TextParagraph>
-                                </li>
-                                <li className="flex items-center gap-2">
-                                    <Avatar>
-                                        <AvatarFallback>CN</AvatarFallback>
-                                    </Avatar>
-                                    <TextParagraph>Kevin vand er Gugten wilt hier heen.</TextParagraph>
-                                </li>
-                            </ul>
+                            <TextParagraph variant="muted">{restaurant.address}</TextParagraph>
                         </div>
                     </div>
                 </div>
