@@ -6,8 +6,7 @@
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 
 @theme {
-    --font-sans:
-        'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
@@ -27,6 +26,8 @@
 
     --color-secondary: var(--secondary);
     --color-secondary-foreground: var(--secondary-foreground);
+
+    --color-text: var(--text);
 
     --color-muted: var(--muted);
     --color-muted-foreground: var(--muted-foreground);
@@ -86,6 +87,7 @@
     --primary-foreground: oklch(0.985 0 0);
     --secondary: oklch(0.96 0.0408 85.29);
     --secondary-foreground: oklch(0.205 0 0);
+    --text: oklch(var(--color-zinc-900));
     --muted: oklch(0.97 0 0);
     --muted-foreground: oklch(0.556 0 0);
     --accent: oklch(0.97 0 0);
