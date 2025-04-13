@@ -5,13 +5,13 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { TextHeading, TextParagraph } from '@/components/ui/text';
 import AuthenticatedLayout from '@/layouts/authenticated-layout';
 import { BookmarkIcon, HeartIcon, LinkIcon, ShareIcon } from 'lucide-react';
+import { Restaurant } from '@/types/resources';
 
-export default function Restaurant() {
-    const restaurant = {
-        name: 'Cafe Caron',
-        address: 'Frans Halsstraat 27-3',
-    };
+type RestaurantPageProps = {
+    restaurant: Restaurant;
+}
 
+export default function RestaurantPage({ restaurant }: RestaurantPageProps) {
     return (
         <AuthenticatedLayout isPadded={false} showBackButton>
             <div className="flex h-full flex-col">

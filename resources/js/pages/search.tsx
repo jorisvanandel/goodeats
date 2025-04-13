@@ -7,20 +7,18 @@ import AuthenticatedLayout from '@/layouts/authenticated-layout';
 import { Link } from '@inertiajs/react';
 import { SearchIcon } from 'lucide-react';
 import { useState } from 'react';
+import { Restaurant } from '@/types/resources';
+import { PaginatedCollection } from '@/types/pagination';
 
-export default function Search() {
+type SearchPageProps = {
+    restaurants: PaginatedCollection<Restaurant>;
+}
+export default function SearchPage({ restaurants }: SearchPageProps) {
     const [loading, setLoading] = useState<boolean>(true);
 
-    const restaurants = [
-        { name: 'Cafe Caron', street: 'Frans Halsstraat 28' },
-        { name: 'Scheepskameel', street: 'Lijnbaansgracht 318-3' },
-        { name: 'Zoldering', street: 'Utrechtsedwarsstraat 313-2' },
-        { name: 'De Juwelier', street: 'Jan Kerkstraat 37-H' },
-        { name: 'De Juwelier', street: 'Jan Kerkstraat 37-H' },
-        { name: 'De Juwelier', street: 'Jan Kerkstraat 37-H' },
-    ];
-
+    // @TODO: Replace this POC with an actual loading state
     setTimeout(() => setLoading(false), 500);
+
     return (
         <AuthenticatedLayout>
             <div className="relative">
@@ -28,11 +26,11 @@ export default function Search() {
                 <Input className="pl-11" placeholder="Zoek hier naar je favoriete restaurant..." />
             </div>
             <div className="mt-5 grid gap-y-3">
-                {restaurants.map((restaurant) => {
+                {restaurants.data.map((restaurant, restaurantIdx) => {
                     return loading ? (
-                        <Skeleton className="h-32" />
+                        <Skeleton key={restaurantIdx} className="h-32" />
                     ) : (
-                        <Link href={route('restaurants.show', 1)}>
+                        <Link key={restaurantIdx} href={route('restaurants.show', restaurant.id)}>
                             <Card className="gap-0 overflow-hidden p-0">
                                 <Carousel>
                                     <CarouselContent>
@@ -49,7 +47,7 @@ export default function Search() {
                                 </Carousel>
                                 <CardContent className="py-2.5">
                                     <TextHeading>{restaurant.name}</TextHeading>
-                                    <TextParagraph variant="muted">{restaurant.street}</TextParagraph>
+                                    <TextParagraph variant="muted">{restaurant.address}</TextParagraph>
                                 </CardContent>
                             </Card>
                         </Link>

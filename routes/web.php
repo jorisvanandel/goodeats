@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -12,13 +14,9 @@ Route::middleware(['auth'])->group(function () {
         return Inertia::render('home');
     })->name('home');
 
-    Route::get('/zoeken', function () {
-        return Inertia::render('search');
-    })->name('search');
+    Route::get('/zoeken', SearchController::class)->name('search');
 
-    Route::get('/restaurant/{restaurant}', function () {
-        return Inertia::render('restaurant');
-    })->name('restaurants.show');
+    Route::get('/restaurants/{restaurant}', [RestaurantController::class, 'show'])->name('restaurants.show');
 
     Route::get('/activiteit', function () {
         return Inertia::render('activity');
