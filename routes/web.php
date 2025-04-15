@@ -8,9 +8,11 @@ use App\Http\Controllers\ViewProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('landing');
-})->name('landing');
+Route::middleware(['guest'])->group(function () {
+    Route::get('/', function () {
+        return Inertia::render('landing');
+    })->name('landing');
+});
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', function () {
