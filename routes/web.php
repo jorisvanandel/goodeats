@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\LikesController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\SearchController;
@@ -27,9 +28,7 @@ Route::middleware(['auth'])->group(function () {
         return Inertia::render('activity');
     })->name('activity');
 
-    Route::get('/profiel', function () {
-        return Inertia::render('account');
-    })->name('account');
+    Route::get('/account', AccountController::class)->name('account');
 });
 
 Route::get('/profile', function () {
