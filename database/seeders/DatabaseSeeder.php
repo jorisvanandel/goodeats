@@ -10,6 +10,10 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+        User::factory()->create([
+            'email' => 'test@user.com',
+        ]);
+
         User::factory(20)->create();
         Restaurant::factory(20)->create();
     }
