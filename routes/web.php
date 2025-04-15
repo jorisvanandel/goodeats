@@ -3,6 +3,7 @@
 use App\Http\Controllers\LikesController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ViewProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -34,6 +35,8 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/profile', function () {
     return Inertia::render('profile');
 })->name('profile');
+
+Route::get('{user:username}', ViewProfileController::class)->name('profile');
 
 // Route::middleware(['auth', 'verified'])->group(function () {
 //     Route::get('dashboard', function () {
