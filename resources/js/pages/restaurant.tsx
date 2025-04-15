@@ -1,17 +1,30 @@
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
-import { Skeleton } from '@/components/ui/skeleton';
 import { TextHeading, TextParagraph } from '@/components/ui/text';
 import AuthenticatedLayout from '@/layouts/authenticated-layout';
-import { BookmarkIcon, HeartIcon, LinkIcon, ShareIcon } from 'lucide-react';
+import { HeartIcon, ShareIcon, TrashIcon } from 'lucide-react';
 import { Restaurant } from '@/types/resources';
+import { router } from '@inertiajs/react'
+import { toast } from 'sonner';
 
 type RestaurantPageProps = {
     restaurant: Restaurant;
+    liked: boolean;
 }
 
-export default function RestaurantPage({ restaurant }: RestaurantPageProps) {
+export default function RestaurantPage({ restaurant, liked }: RestaurantPageProps) {
+    function addLike() {
+        router.post(route('likes.store', { restaurant_id: restaurant.id }), {}, {
+            onSuccess: () => toast('Je hebt dit restaurant aan je lijst toegevoegd!')
+        })
+    }
+
+    function removeLike() {
+        router.delete(route('likes.destroy', { restaurant_id: restaurant.id }), {
+            onSuccess: () => toast('Je hebt dit restaurant van je lijst gehaald.')
+        })
+    }
+
     return (
         <AuthenticatedLayout isPadded={false} showBackButton>
             <div className="flex h-full flex-col">
@@ -35,10 +48,10 @@ export default function RestaurantPage({ restaurant }: RestaurantPageProps) {
                     <div className="p-4">
                         <div>
                             <TextHeading size="xl">{restaurant.name}</TextHeading>
-                            <Button className="mt-2" size="sm" variant="outline">
-                                <LinkIcon />
-                                Bekijk website
-                            </Button>
+                            {/*<Button className="mt-2" size="sm" variant="outline">*/}
+                            {/*    <LinkIcon />*/}
+                            {/*    Bekijk website*/}
+                            {/*</Button>*/}
                         </div>
                         <div className="mt-6">
                             <TextHeading>Locatie</TextHeading>
@@ -46,15 +59,18 @@ export default function RestaurantPage({ restaurant }: RestaurantPageProps) {
                         </div>
                     </div>
                 </div>
-                <div className="border-border grid grid-cols-2 gap-3 border-t p-2">
-                    <Button variant="secondary">
-                        <BookmarkIcon />
-                        Hier wil ik heen
-                    </Button>
-                    <Button>
-                        <HeartIcon />
-                        Dit was top
-                    </Button>
+                <div className="border-border border-t p-2">
+                    {liked ? (
+                        <Button className="w-full" variant="destructive" onClick={removeLike}>
+                            <TrashIcon />
+                            Verwijder dit restaurant van mijn lijst
+                        </Button>
+                    ) : (
+                        <Button className="w-full" onClick={addLike}>
+                            <HeartIcon />
+                            Voeg dit restaurant toe aan mijn lijst
+                        </Button>
+                    )}
                 </div>
             </div>
         </AuthenticatedLayout>

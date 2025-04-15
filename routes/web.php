@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LikesController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/zoeken', SearchController::class)->name('search');
 
     Route::get('/restaurants/{restaurant}', [RestaurantController::class, 'show'])->name('restaurants.show');
+
+    Route::post('/likes', [LikesController::class, 'store'])->name('likes.store');
+    Route::delete('/likes', [LikesController::class, 'destroy'])->name('likes.destroy');
 
     Route::get('/activiteit', function () {
         return Inertia::render('activity');
