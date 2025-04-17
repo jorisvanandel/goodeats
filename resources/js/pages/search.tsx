@@ -93,7 +93,7 @@ export default function SearchPage({ restaurants, users }: SearchPageProps) {
                     <div className="mt-5 grid gap-3">
                         <Deferred fallback={
                             <>
-                                {Array.from({ length: 10 }, (_, idx) => <Skeleton key={idx} className="h-32" />)}
+                                {Array.from({ length: 10 }, (_, idx) => <Skeleton key={idx} className="h-16" />)}
                             </>
                         } data="restaurants">
                             <>
