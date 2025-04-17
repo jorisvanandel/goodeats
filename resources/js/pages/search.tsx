@@ -48,7 +48,7 @@ export default function SearchPage({ restaurants, users }: SearchPageProps) {
     function handleTabValueChange(type: SearchResultsType) {
         setSearchResultsType(type);
 
-        router.get(window.location.href, { tab: type }, {
+        router.get(window.location.href, { tab: type, query: undefined }, {
             preserveState: true,
         })
     }
