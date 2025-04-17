@@ -3,23 +3,31 @@ import { Toaster } from '@/components/ui/sonner';
 import { TextHeading } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
 import { Link } from '@inertiajs/react';
-import { ActivityIcon, ChevronLeft, HomeIcon, SearchIcon, UserIcon } from 'lucide-react';
-import { type PropsWithChildren } from 'react';
+import { ActivityIcon, ChevronLeft, HomeIcon, type LucideIcon, SearchIcon, UserIcon } from 'lucide-react';
+import { MouseEvent, type PropsWithChildren } from 'react';
 import { toast } from 'sonner';
 import { useRoute } from 'ziggy-js';
+
+type NavigationItem = {
+    label: string;
+    icon: LucideIcon;
+    href: string;
+    disabled?: boolean;
+    active: boolean;
+}
 
 type AuthenticatedLayoutProps = PropsWithChildren & { title?: string; isPadded?: boolean; showBackButton?: boolean };
 export default function AuthenticatedLayout({ title, isPadded = true, showBackButton = false, children }: AuthenticatedLayoutProps) {
     const route = useRoute();
 
-    const navigationItems = [
+    const navigationItems: NavigationItem[] = [
         { label: 'Home', icon: HomeIcon, href: route('home'), active: route().current('home') },
         { label: 'Zoeken', icon: SearchIcon, href: route('search'), active: route().current('search') },
         { label: 'Activiteit', icon: ActivityIcon, href: '#', disabled: true, active: route().current('activity') },
         { label: 'Account', icon: UserIcon, href: route('account'), active: route().current('account') },
     ];
 
-    const handleOnNavigationItemClick = (event: Event, item) => {
+    const handleOnNavigationItemClick = (event: MouseEvent, item: NavigationItem) => {
         if (!item.disabled) {
             return;
         }
