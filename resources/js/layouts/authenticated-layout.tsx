@@ -52,20 +52,12 @@ export default function AuthenticatedLayout({ title, isPadded = true, showBackBu
                     )}
                     {children}
                 </div>
-                <div className="flex justify-around bg-slate-50 p-4">
+                <div className="grid grid-cols-4 gap-x-5 bg-slate-50">
                     {navigationItems.map((item, itemIdx) => (
-                        <Button
-                            className={cn('h-fit', item.active && 'font-bold')}
-                            size="sm"
-                            variant={item.active ? 'link' : 'ghost'}
-                            key={itemIdx}
-                            asChild
-                        >
-                            <Link className="flex flex-col" href={item.href} onClick={(e) => handleOnNavigationItemClick(e, item)}>
-                                <item.icon className="size-5" />
-                                <span className="text-xs">{item.label}</span>
-                            </Link>
-                        </Button>
+                        <Link key={itemIdx} className={cn('flex flex-col border-t-3 h-16 items-center py-3', item.active ? 'border-t-primary text-primary' : 'border-t-transparent')} href={item.href} onClick={(e) => handleOnNavigationItemClick(e, item)}>
+                            <item.icon className="shrink-0 size-5" />
+                            <span className="mt-2 text-xs">{item.label}</span>
+                        </Link>
                     ))}
                 </div>
             </div>
