@@ -46,19 +46,19 @@ export default function Account({ user, likes, followers, followings }: AccountP
                     <TabsTrigger value="followers">Volgers</TabsTrigger>
                     <TabsTrigger value="following">Volgend</TabsTrigger>
                 </TabsList>
-                <TabsContent className="grid gap-y-3" value="likes">
+                <TabsContent className="mt-4 grid gap-y-3" value="likes">
                     {likes.data.map((restaurant) => (
                         <RestaurantCard restaurant={restaurant} key={restaurant.id}/>
                     ))}
                 </TabsContent>
-                <TabsContent value="followers">
+                <TabsContent className="mt-4" value="followers">
                     <div className="divide-divide divide-y">
                         {followers.data.map((user) => (
                             <UserCard key={user.id} user={user}/>
                         ))}
                     </div>
                 </TabsContent>
-                <TabsContent value="following">
+                <TabsContent className="mt-4" value="following">
                     <div className="divide-divide divide-y">
                         {followings.data.map((user) => (
                             <UserCard key={user.id} user={user}/>
