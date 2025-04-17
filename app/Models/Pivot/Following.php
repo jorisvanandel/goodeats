@@ -6,7 +6,7 @@ namespace App\Models\Pivot;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class RestaurantLike extends Pivot
+class Following extends Pivot
 {
-    protected $table = 'restaurant_user';
+    protected $table = 'followings';
 }

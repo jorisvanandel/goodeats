@@ -9,13 +9,14 @@ use App\Http\Resources\RestaurantResource;
 use App\Http\Resources\UserResource;
 use App\Models\Restaurant;
 use App\Models\User;
+use Illuminate\Container\Attributes\CurrentUser;
 use Illuminate\Database\Eloquent\Builder;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class ViewProfileController extends Controller
 {
-    public function __invoke(User $user): Response
+    public function __invoke(User $user, #[CurrentUser] User $currentUser): Response
     {
         $user->load('likes');
 
@@ -23,8 +24,9 @@ class ViewProfileController extends Controller
 
         return Inertia::render('profile', [
             'likes_count' => $user->likes()->count(),
-            'likes' => RestaurantResource::collection($restaurants),
-            'user' => UserResource::make($user),
+            'likes'       => RestaurantResource::collection($restaurants),
+            'user'        => UserResource::make($user),
+            'following'   => $currentUser ? $currentUser->follows($user) : null
         ]);
     }
 }

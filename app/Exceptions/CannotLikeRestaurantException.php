@@ -10,6 +10,6 @@ class CannotLikeRestaurantException extends RuntimeException
 {
     public static function becauseUserAlreadyLikedIt(): self
     {
-        return new self('Cannot like restaurant because the user already liked it.');
+        return new self();
     }
 }

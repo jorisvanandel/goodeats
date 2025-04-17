@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use App\Models\Pivot\RestaurantLike;
+use App\Models\Pivot\Following;
+use App\Models\Pivot\Like;
 use Carbon\Carbon;
 use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -56,6 +57,21 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function likes(): BelongsToMany
     {
-        return $this->belongsToMany(Restaurant::class)->using(RestaurantLike::class);
+        return $this->belongsToMany(Restaurant::class, 'likes')->using(Like::class);
+    }
+
+    public function followers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'followings', 'following_id', 'follower_id')->using(Following::class);
+    }
+
+    public function followings(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'followings', 'follower_id', 'following_id')->using(Following::class);
+    }
+
+    public function follows(User $user): bool
+    {
+        return $this->followings()->where('following_id', $user->id)->exists();
     }
 }

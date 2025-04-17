@@ -16,10 +16,14 @@ class AccountController extends Controller
     public function __invoke(#[CurrentUser] User $user): Response
     {
         $restaurants = $user->likes()->paginate(10);
+        $followers = $user->followers()->paginate(10);
+        $followings = $user->followings()->paginate(10);
 
         return Inertia::render('account', [
-            'user' => UserResource::make($user),
-            'likes' => RestaurantResource::collection($restaurants)
+            'user'       => UserResource::make($user),
+            'likes'      => RestaurantResource::collection($restaurants),
+            'followers'  => UserResource::collection($followers),
+            'followings' => UserResource::collection($followings),
         ]);
     }
 }

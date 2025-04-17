@@ -30,7 +30,7 @@ export default function AuthenticatedLayout({ title, isPadded = true, showBackBu
 
     return (
         <>
-            <div className="flex h-dvh flex-col">
+            <div className="flex max-w-md mx-auto h-dvh flex-col">
                 <div className={cn('relative flex-grow overflow-y-scroll', isPadded && 'p-4')}>
                     {showBackButton && (
                         <Button onClick={() => window.history.back()} variant="outline" className="absolute top-5 left-5 z-10 size-9 rounded-full">

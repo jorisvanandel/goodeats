@@ -3,30 +3,62 @@ import { TextHeading } from '@/components/ui/text';
 import { Restaurant, User } from '@/types/resources';
 import { PaginatedCollection } from '@/types/pagination';
 import { RestaurantCard } from '@/components/restaurant-card';
+import GuestLayout from '@/layouts/guest-layout';
+import { Button } from '@/components/ui/button';
+import { router } from '@inertiajs/react'
+import { ChevronLeft } from 'lucide-react';
 
 type ProfilePageProps = {
     user: User;
     likes: PaginatedCollection<Restaurant>;
+    following: boolean | null;
 }
 
-export default function ProfilePage({ user, likes }: ProfilePageProps) {
-    return (
-        <div className="relative flex flex-col px-4 py-8">
-            <div className="text-center">
-                <Avatar className="mx-auto size-24">
-                    <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-                <TextHeading size="lg" className="mt-4">{user.name}</TextHeading>
-            </div>
+export default function ProfilePage({ user, likes, following }: ProfilePageProps) {
+    function toggleFollowing() {
+        if (following === null) {
+            return;
+        }
 
-            <div className="mt-4">
-                <TextHeading size="sm">Gelikede restaurants</TextHeading>
-                <div className="mt-2 grid gap-3">
-                    {likes.data.map((restaurant) => (
-                        <RestaurantCard key={restaurant.id} restaurant={restaurant}/>
-                    ))}
+        if (following) {
+            router.delete(route('followings.destroy', { user_id: user.id }))
+        } else {
+            router.post(route('followings.store', { user_id: user.id }))
+        }
+    }
+
+    return (
+        <GuestLayout title={user.name}>
+            <Button onClick={() => window.history.back()} variant="outline" className="absolute top-5 left-5 z-10 size-11 rounded-full">
+                <ChevronLeft className="size-6" />
+            </Button>
+            <div className="relative flex flex-col px-4 py-8">
+                <div className="text-center">
+                    <Avatar className="mx-auto size-24">
+                        <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
+                    <TextHeading size="lg" className="mt-4">
+                        {user.name}
+                    </TextHeading>
+                </div>
+
+                {following !== null && (
+                    <div className="mt-2">
+                        <Button size="sm" variant="outline" onClick={toggleFollowing}>
+                            {following ? 'Ontvolgen' : 'Volgen'}
+                        </Button>
+                    </div>
+                )}
+
+                <div className="mt-4">
+                    <TextHeading size="sm">Gelikede restaurants</TextHeading>
+                    <div className="mt-2 grid gap-3">
+                        {likes.data.map((restaurant) => (
+                            <RestaurantCard key={restaurant.id} restaurant={restaurant} />
+                        ))}
+                    </div>
                 </div>
             </div>
-        </div>
+        </GuestLayout>
     );
 }
