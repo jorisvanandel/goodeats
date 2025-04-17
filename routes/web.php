@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\LikesController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\SearchController;
@@ -12,6 +13,8 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/', function () {
         return Inertia::render('landing');
     })->name('landing');
+
+    Route::get('/registreren', [RegisteredUserController::class, 'create'])->name('register');
 });
 
 Route::middleware(['auth'])->group(function () {
