@@ -8,14 +8,15 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('likes', function (Blueprint $table) {
+        Schema::create('engagements', function (Blueprint $table) {
             $table->foreignId('restaurant_id')->constrained();
             $table->foreignId('user_id')->constrained();
+            $table->string('type');
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('likes');
+        Schema::dropIfExists('engagements');
     }
 };

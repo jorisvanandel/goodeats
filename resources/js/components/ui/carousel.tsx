@@ -6,7 +6,6 @@ import { ArrowLeft, ArrowRight } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { Skeleton } from '@/components/ui/skeleton';
 
 type CarouselApi = UseEmblaCarouselType[1]
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>
@@ -136,7 +135,7 @@ function Carousel({
         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
           <div className="flex space-x-1.5">
             {Array.from({ length: count }, (_, idx) => (
-              <div key={idx} className={cn('size-2 rounded-full', current === idx ? 'bg-background' : 'bg-background/50')} />
+              <div key={idx} className={cn('rounded-full transition-all duration-150', current === idx ? 'bg-background h-2 w-3.5' : 'bg-background/50 size-2')} />
             ))}
           </div>
         </div>

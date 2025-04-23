@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Enums\EngagementType;
 use App\Models\Pivot\Following;
-use App\Models\Pivot\Like;
+use App\Models\Pivot\Engagement;
 use Carbon\Carbon;
 use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -55,9 +57,27 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
+    public function engagements(): BelongsToMany
+    {
+        return $this->belongsToMany(Restaurant::class, 'engagements')->using(Engagement::class);
+    }
+
     public function likes(): BelongsToMany
     {
-        return $this->belongsToMany(Restaurant::class, 'likes')->using(Like::class);
+        return $this->engagements()
+            ->tap(fn (Builder $query) => $query->where('type', EngagementType::Like));
+    }
+
+    public function bookmarks(): BelongsToMany
+    {
+        return $this->engagements()
+            ->tap(fn (Builder $query) => $query->where('type', EngagementType::Bookmark));
+    }
+
+    public function favorites(): BelongsToMany
+    {
+        return $this->engagements()
+            ->tap(fn (Builder $query) => $query->where('type', EngagementType::Favorite));
     }
 
     public function followers(): BelongsToMany

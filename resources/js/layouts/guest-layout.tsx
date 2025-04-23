@@ -1,6 +1,6 @@
+import { cn } from '@/lib/utils';
 import { Head } from '@inertiajs/react';
 import { type PropsWithChildren } from 'react';
-import { cn } from '@/lib/utils';
 
 type GuestLayoutProps = {
     title: string;
@@ -9,7 +9,7 @@ type GuestLayoutProps = {
 
 export default function GuestLayout({ children, className, title }: PropsWithChildren<GuestLayoutProps>) {
     return (
-        <div className={cn('relative bg-background z-10 mx-auto h-dvh w-screen max-w-md', className)}>
+        <div className={cn('bg-background relative z-10 mx-auto h-dvh w-screen max-w-md', className)}>
             <Head title={title} />
             {children}
         </div>

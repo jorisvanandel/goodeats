@@ -3,9 +3,9 @@ import { Button } from '@/components/ui/button';
 import { Drawer, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import GuestLayout from '@/layouts/guest-layout';
 import { Link, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
-import GuestLayout from '@/layouts/guest-layout';
 
 type LoginForm = {
     email: string;
@@ -82,13 +82,15 @@ function LoginDrawer() {
 
 export default function LandingPage() {
     return (
-        <GuestLayout title="Home" className="flex bg-[url(/images/landing-page-background-2.jpg)] bg-cover pt-[33vh] before:absolute before:inset-0 before:z-[-5] before:block before:bg-linear-to-b before:via-zinc-700 before:to-zinc-950 before:opacity-75 before:content-['']">
+        <GuestLayout
+            title="Home"
+            className="flex bg-[url(/images/landing-page-background-2.jpg)] bg-cover pt-[33vh] before:absolute before:inset-0 before:z-[-5] before:block before:bg-linear-to-b before:via-zinc-700 before:to-zinc-950 before:opacity-75 before:content-['']"
+        >
             <div className="flex w-full flex-col justify-between px-3 pb-8">
                 <div>
                     <h1 className="text-secondary text-5xl font-semibold">Welkom bij GoodEats!</h1>
                     <p className="text-secondary mt-4">
-                        GoodEats is dé nieuwe plek om culinaire hotspots te delen met je vrienden. Meld je aan via
-                        de onderstaande link of log in om
+                        GoodEats is dé nieuwe plek om culinaire hotspots te delen met je vrienden. Meld je aan via de onderstaande link of log in om
                         naar je profiel te gaan.
                     </p>
                 </div>

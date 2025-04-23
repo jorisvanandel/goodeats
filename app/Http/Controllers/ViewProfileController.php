@@ -18,15 +18,14 @@ class ViewProfileController extends Controller
 {
     public function __invoke(User $user, #[CurrentUser] User $currentUser): Response
     {
-        $user->load('likes');
+        $user->load('engagements');
 
-        $restaurants = $user->likes()->paginate(10);
+        $engagements = $user->engagements()->paginate(10);
 
         return Inertia::render('profile', [
-            'likes_count' => $user->likes()->count(),
-            'likes'       => RestaurantResource::collection($restaurants),
-            'user'        => UserResource::make($user),
-            'following'   => $currentUser ? $currentUser->follows($user) : null
+            'engagements'       => RestaurantResource::collection($engagements),
+            'user'              => UserResource::make($user),
+            'following'         => $currentUser ? $currentUser->follows($user) : null
         ]);
     }
 }

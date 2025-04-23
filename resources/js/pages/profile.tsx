@@ -1,29 +1,29 @@
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { TextHeading } from '@/components/ui/text';
-import { Restaurant, User } from '@/types/resources';
-import { PaginatedCollection } from '@/types/pagination';
 import { RestaurantCard } from '@/components/restaurant-card';
-import GuestLayout from '@/layouts/guest-layout';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { router } from '@inertiajs/react'
+import { TextHeading } from '@/components/ui/text';
+import GuestLayout from '@/layouts/guest-layout';
+import { PaginatedCollection } from '@/types/pagination';
+import { Restaurant, User } from '@/types/resources';
+import { router } from '@inertiajs/react';
 import { ChevronLeft } from 'lucide-react';
 
 type ProfilePageProps = {
     user: User;
-    likes: PaginatedCollection<Restaurant>;
+    engagements: PaginatedCollection<Restaurant>;
     following: boolean | null;
-}
+};
 
-export default function ProfilePage({ user, likes, following }: ProfilePageProps) {
+export default function ProfilePage({ user, engagements, following }: ProfilePageProps) {
     function toggleFollowing() {
         if (following === null) {
             return;
         }
 
         if (following) {
-            router.delete(route('followings.destroy', { user_id: user.id }))
+            router.delete(route('followings.destroy', { user_id: user.id }));
         } else {
-            router.post(route('followings.store', { user_id: user.id }))
+            router.post(route('followings.store', { user_id: user.id }));
         }
     }
 
@@ -51,9 +51,9 @@ export default function ProfilePage({ user, likes, following }: ProfilePageProps
                 )}
 
                 <div className="mt-4">
-                    <TextHeading size="sm">Gelikede restaurants</TextHeading>
+                    <TextHeading size="sm">Restaurants van {user.name}</TextHeading>
                     <div className="mt-2 grid gap-3">
-                        {likes.data.map((restaurant) => (
+                        {engagements.data.map((restaurant) => (
                             <RestaurantCard key={restaurant.id} restaurant={restaurant} />
                         ))}
                     </div>

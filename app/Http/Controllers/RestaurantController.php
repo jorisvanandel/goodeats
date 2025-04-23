@@ -17,7 +17,7 @@ class RestaurantController extends Controller
     {
         return Inertia::render('restaurant', [
             'restaurant' => RestaurantResource::make($restaurant),
-            'liked' => $user->likes()->where('restaurant_id', $restaurant->id)->exists()
+            'liked' => $user->engagements()->where('restaurant_id', $restaurant->id)->exists()
         ]);
     }
 }

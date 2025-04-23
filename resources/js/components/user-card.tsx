@@ -1,14 +1,13 @@
-import { Link } from '@inertiajs/react';
-import React from 'react';
-import { User } from '@/types/resources';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { TextHeading, TextParagraph } from '@/components/ui/text';
+import { User } from '@/types/resources';
+import { Link } from '@inertiajs/react';
 
 type UserCardProps = {
     user: User;
-}
+};
 
-export function UserCard({ user } : UserCardProps) {
+export function UserCard({ user }: UserCardProps) {
     return (
         <Link href={route('profile', { user: user })}>
             <div className="flex items-center justify-between py-3">
@@ -23,5 +22,5 @@ export function UserCard({ user } : UserCardProps) {
                 </div>
             </div>
         </Link>
-    )
+    );
 }

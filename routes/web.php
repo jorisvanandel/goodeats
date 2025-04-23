@@ -3,7 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\FollowingsController;
-use App\Http\Controllers\LikesController;
+use App\Http\Controllers\EngagementsController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ViewProfileController;
@@ -27,8 +27,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/restaurants/{restaurant}', [RestaurantController::class, 'show'])->name('restaurants.show');
 
-    Route::post('/likes', [LikesController::class, 'store'])->name('likes.store');
-    Route::delete('/likes', [LikesController::class, 'destroy'])->name('likes.destroy');
+    Route::post('/engagements', [EngagementsController::class, 'store'])->name('engagements.store');
+    Route::delete('/engagements', [EngagementsController::class, 'destroy'])->name('engagements.destroy');
 
     Route::post('/followings', [FollowingsController::class, 'store'])->name('followings.store');
     Route::delete('/followings', [FollowingsController::class, 'destroy'])->name('followings.destroy');

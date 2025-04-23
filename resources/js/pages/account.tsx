@@ -1,23 +1,23 @@
+import { RestaurantCard } from '@/components/restaurant-card';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { TextHeading, TextParagraph } from '@/components/ui/text';
+import { UserCard } from '@/components/user-card';
 import AuthenticatedLayout from '@/layouts/authenticated-layout';
+import { PaginatedCollection } from '@/types/pagination';
+import { Restaurant, User } from '@/types/resources';
 import { Link } from '@inertiajs/react';
 import { LinkIcon } from 'lucide-react';
-import { Restaurant, User } from '@/types/resources';
-import { PaginatedCollection } from '@/types/pagination';
-import { RestaurantCard } from '@/components/restaurant-card';
-import { UserCard } from '@/components/user-card';
 
 type AccountPageProps = {
     user: User;
-    likes: PaginatedCollection<Restaurant>;
+    engagements: PaginatedCollection<Restaurant>;
     followers: PaginatedCollection<User>;
     followings: PaginatedCollection<User>;
-}
+};
 
-export default function Account({ user, likes, followers, followings }: AccountPageProps) {
+export default function Account({ user, engagements, followers, followings }: AccountPageProps) {
     return (
         <AuthenticatedLayout title="Mijn account">
             <div className="flex justify-between">
@@ -32,36 +32,38 @@ export default function Account({ user, likes, followers, followings }: AccountP
             <div className="mt-5 flex gap-2">
                 <Button size="md" asChild variant="outline">
                     <Link href={route('profile', { user: user })}>
-                        <LinkIcon/>
+                        <LinkIcon />
                         Bekijk publieke profiel
                     </Link>
                 </Button>
                 <Button variant="outline" size="md" asChild>
-                    <Link href={route('logout')} method="post">Uitloggen</Link>
+                    <Link href={route('logout')} method="post">
+                        Uitloggen
+                    </Link>
                 </Button>
             </div>
-            <Tabs className="mt-5" defaultValue="likes">
+            <Tabs className="mt-5" defaultValue="engagements">
                 <TabsList className="grid w-full grid-cols-3">
-                    <TabsTrigger value="likes">Likes</TabsTrigger>
+                    <TabsTrigger value="engagements">Restaurants</TabsTrigger>
                     <TabsTrigger value="followers">Volgers</TabsTrigger>
                     <TabsTrigger value="following">Volgend</TabsTrigger>
                 </TabsList>
-                <TabsContent className="mt-4 grid gap-y-3" value="likes">
-                    {likes.data.map((restaurant) => (
-                        <RestaurantCard restaurant={restaurant} key={restaurant.id}/>
+                <TabsContent className="mt-4 grid gap-y-3" value="engagements">
+                    {engagements.data.map((restaurant) => (
+                        <RestaurantCard restaurant={restaurant} key={restaurant.id} />
                     ))}
                 </TabsContent>
                 <TabsContent className="mt-4" value="followers">
                     <div className="divide-divide divide-y">
                         {followers.data.map((user) => (
-                            <UserCard key={user.id} user={user}/>
+                            <UserCard key={user.id} user={user} />
                         ))}
                     </div>
                 </TabsContent>
                 <TabsContent className="mt-4" value="following">
                     <div className="divide-divide divide-y">
                         {followings.data.map((user) => (
-                            <UserCard key={user.id} user={user}/>
+                            <UserCard key={user.id} user={user} />
                         ))}
                     </div>
                 </TabsContent>
