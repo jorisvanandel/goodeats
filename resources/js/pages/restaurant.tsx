@@ -5,28 +5,30 @@ import AuthenticatedLayout from '@/layouts/authenticated-layout';
 import { EngagementType } from '@/types/enums';
 import { Restaurant } from '@/types/resources';
 import { router } from '@inertiajs/react';
-import { HeartIcon, ShareIcon, TrashIcon } from 'lucide-react';
+import { BookmarkIcon, HeartIcon, ShareIcon, StarIcon } from 'lucide-react';
 import { toast } from 'sonner';
 
 type RestaurantPageProps = {
     restaurant: Restaurant;
     liked: boolean;
+    favorited: boolean;
+    bookmarked: boolean;
 };
 
-export default function RestaurantPage({ restaurant, liked }: RestaurantPageProps) {
-    function addLike() {
+export default function RestaurantPage({ restaurant, liked, favorited, bookmarked }: RestaurantPageProps) {
+    function addEngagement(type: EngagementType) {
         router.post(
-            route('engagements.store', { restaurant_id: restaurant.id, type: EngagementType.Like }),
+            route('engagements.store', { restaurant_id: restaurant.id, type: type }),
             {},
             {
-                onSuccess: () => toast('Je hebt dit restaurant aan je lijst toegevoegd!'),
+                onSuccess: () => toast('Je ervaring met dit restaurant is opgeslagen.'),
             },
         );
     }
 
-    function removeLike() {
-        router.delete(route('engagements.destroy', { restaurant_id: restaurant.id, type: EngagementType.Like }), {
-            onSuccess: () => toast('Je hebt dit restaurant van je lijst gehaald.'),
+    function removeEngagement(type: EngagementType) {
+        router.delete(route('engagements.destroy', { restaurant_id: restaurant.id, type: type }), {
+            onSuccess: () => toast('Je ervaring met dit restaurant is opgeslagen.'),
         });
     }
 
@@ -64,18 +66,32 @@ export default function RestaurantPage({ restaurant, liked }: RestaurantPageProp
                         </div>
                     </div>
                 </div>
-                <div className="border-border border-t p-2">
-                    {liked ? (
-                        <Button className="w-full" variant="destructive" onClick={removeLike}>
-                            <TrashIcon />
-                            Verwijder dit restaurant van mijn lijst
-                        </Button>
-                    ) : (
-                        <Button className="w-full" onClick={addLike}>
-                            <HeartIcon />
-                            Voeg dit restaurant toe aan mijn lijst
-                        </Button>
-                    )}
+                <div className="border-border flex gap-x-2 border-t p-2">
+                    <Button
+                        className="flex-grow"
+                        variant={liked ? 'destructive' : 'default'}
+                        onClick={() => (liked ? removeEngagement(EngagementType.Like) : addEngagement(EngagementType.Like))}
+                    >
+                        <HeartIcon />
+                        {liked ? 'Verwijder like' : 'Dit was leuk'}
+                    </Button>
+
+                    <Button
+                        className=""
+                        variant={favorited ? 'secondary' : 'outline'}
+                        onClick={() => (favorited ? removeEngagement(EngagementType.Favorite) : addEngagement(EngagementType.Favorite))}
+                    >
+                        <StarIcon />
+                        {favorited ? 'Verwijder favoriet' : 'Dit was top'}
+                    </Button>
+
+                    <Button
+                        className=""
+                        variant={bookmarked ? 'secondary' : 'outline'}
+                        onClick={() => (bookmarked ? removeEngagement(EngagementType.Bookmark) : addEngagement(EngagementType.Bookmark))}
+                    >
+                        <BookmarkIcon />
+                    </Button>
                 </div>
             </div>
         </AuthenticatedLayout>

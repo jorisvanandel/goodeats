@@ -71,7 +71,7 @@ export default function SearchPage({ restaurants, users }: SearchPageProps) {
                     <TabsTrigger value="users">Gebruikers</TabsTrigger>
                 </TabsList>
                 <TabsContent value="restaurants">
-                    <div className="mt-5 grid gap-3">
+                    <div className="mt-5 grid gap-4">
                         <Deferred
                             fallback={
                                 <>
@@ -97,7 +97,7 @@ export default function SearchPage({ restaurants, users }: SearchPageProps) {
                     </div>
                 </TabsContent>
                 <TabsContent value="users">
-                    <div className="mt-5 grid gap-3">
+                    <div className="mt-5 grid gap-4">
                         <Deferred
                             fallback={
                                 <>

@@ -13,7 +13,7 @@ class RemoveEngagementAction
     public function execute(Restaurant $restaurant, User $user, EngagementType $type): void
     {
         $user->engagements()
-            ->where('type', $type)
+            ->wherePivot('type', $type)
             ->detach($restaurant);
     }
 }

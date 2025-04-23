@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -19,6 +20,7 @@ use Illuminate\Notifications\Notifiable;
  * @property string $name
  * @property string $email
  * @property string $username
+ * @property-read Collection<Restaurant> $engagements
  * @property-read Carbon $updated_at
  * @property-read Carbon $created_at
  */
@@ -59,7 +61,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function engagements(): BelongsToMany
     {
-        return $this->belongsToMany(Restaurant::class, 'engagements')->using(Engagement::class);
+        return $this->belongsToMany(Restaurant::class, 'engagements')
+            ->withPivot(['type'])
+            ->using(Engagement::class);
     }
 
     public function likes(): BelongsToMany
@@ -93,5 +97,30 @@ class User extends Authenticatable implements MustVerifyEmail
     public function follows(User $user): bool
     {
         return $this->followings()->where('following_id', $user->id)->exists();
+    }
+
+    public function hasEngagedWithRestaurant(Restaurant $restaurant, EngagementType $type): bool
+    {
+        return $this->engagements->contains(function (Restaurant $engaged) use ($restaurant, $type) {
+            /** @var Engagement $pivot */
+            $pivot = $engaged->pivot;
+
+            return $pivot->restaurant_id === $restaurant->id && $pivot->type === $type;
+        });
+    }
+
+    public function hasLikedRestaurant(Restaurant $restaurant): bool
+    {
+        return $this->hasEngagedWithRestaurant($restaurant, EngagementType::Like);
+    }
+
+    public function hasFavoritedRestaurant(Restaurant $restaurant): bool
+    {
+        return $this->hasEngagedWithRestaurant($restaurant, EngagementType::Favorite);
+    }
+
+    public function hasBookmarkedRestaurant(Restaurant $restaurant): bool
+    {
+        return $this->hasEngagedWithRestaurant($restaurant, EngagementType::Bookmark);
     }
 }

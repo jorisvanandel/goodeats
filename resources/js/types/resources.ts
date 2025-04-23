@@ -1,3 +1,5 @@
+import { City, EngagementType } from '@/types/enums';
+
 export interface Model {
     id: number;
     created_at: string;
@@ -6,8 +8,13 @@ export interface Model {
 
 export interface Restaurant extends Model {
     name: string;
-    city: 'amsterdam' | 'utrecht'; // @TODO: Improve typing here
+    city: City;
     address: string;
+    engagements?: {
+        [EngagementType.Like]: boolean;
+        [EngagementType.Favorite]: boolean;
+        [EngagementType.Bookmark]: boolean;
+    }
 }
 
 export interface User extends Model {

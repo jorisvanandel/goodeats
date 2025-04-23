@@ -3,3 +3,8 @@ export enum EngagementType {
     Favorite = 'favorite',
     Bookmark = 'bookmark',
 }
+
+export enum City {
+    Amsterdam = 'amsterdam',
+    Utrecht = 'utrecht',
+}
