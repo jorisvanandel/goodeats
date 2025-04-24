@@ -14,9 +14,10 @@ import { useDebouncedCallback } from 'use-debounce';
 import { useRoute } from 'ziggy-js';
 
 type SearchPageProps = {
-    restaurants: PaginatedCollection<Restaurant>;
-    users: PaginatedCollection<User>;
+    restaurants: PaginatedCollection<Restaurant> | undefined;
+    users: PaginatedCollection<User> | undefined;
 };
+
 export default function SearchPage({ restaurants, users }: SearchPageProps) {
     const route = useRoute();
 
@@ -50,6 +51,8 @@ export default function SearchPage({ restaurants, users }: SearchPageProps) {
             { tab: type, query: undefined },
             {
                 preserveState: true,
+                onBefore: () => setLoading(true),
+                onFinish: () => setLoading(false)
             },
         );
     }
@@ -107,7 +110,7 @@ export default function SearchPage({ restaurants, users }: SearchPageProps) {
                                         ))}
                                     </>
                                 }
-                                data="restaurants"
+                                data="users"
                             >
                                 <>
                                     {loading && (
