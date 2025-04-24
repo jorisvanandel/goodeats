@@ -58,6 +58,6 @@ class Restaurant extends Model implements HasMedia
     {
         $this->addMediaConversion('preview')
             ->performOnCollections('images')
-            ->width(200);
+            ->width(500);
     }
 }

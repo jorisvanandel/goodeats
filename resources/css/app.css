@@ -119,6 +119,6 @@
     }
 
     body {
-        @apply bg-slate-50 text-foreground;
+        @apply text-foreground bg-slate-50;
     }
 }

@@ -4,16 +4,16 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { TextParagraph } from '@/components/ui/text';
 import {
-    AuthenticatedLayout,
     AuthenticatedLayoutContent,
     AuthenticatedLayoutDescription,
     AuthenticatedLayoutHeader,
     AuthenticatedLayoutTitle,
 } from '@/layouts/authenticated-layout';
+import GuestLayout from '@/layouts/guest-layout';
 import type { SharedData } from '@/types';
 import { useForm, usePage } from '@inertiajs/react';
+import { LoaderCircle } from 'lucide-react';
 import { FormEvent } from 'react';
-import GuestLayout from '@/layouts/guest-layout';
 
 type FinishProfileForm = {
     username: string;
@@ -24,7 +24,7 @@ type FinishProfileForm = {
 export default function FinishProfilePage() {
     const { auth } = usePage<SharedData>().props;
 
-    const { data, setData, post, errors } = useForm<FinishProfileForm>({
+    const { data, setData, post, errors, processing } = useForm<FinishProfileForm>({
         username: auth.user.username,
         name: auth.user.name ?? '',
         avatar: null,
@@ -79,7 +79,8 @@ export default function FinishProfilePage() {
                         <InputError message={errors.avatar} />
                     </div>
 
-                    <Button className="w-full" type="submit">
+                    <Button disabled={processing} className="w-full" type="submit">
+                        {processing && <LoaderCircle className="size-4 animate-spin" />}
                         Opslaan
                     </Button>
                 </form>

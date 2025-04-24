@@ -52,7 +52,7 @@ export default function SearchPage({ restaurants, users }: SearchPageProps) {
             {
                 preserveState: true,
                 onBefore: () => setLoading(true),
-                onFinish: () => setLoading(false)
+                onFinish: () => setLoading(false),
             },
         );
     }

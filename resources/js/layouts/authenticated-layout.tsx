@@ -19,7 +19,7 @@ type NavigationItem = {
 type AuthenticatedLayoutProps = PropsWithChildren & { title?: string };
 
 function AuthenticatedLayoutContent({ className, ...props }: React.ComponentProps<'div'>) {
-    return <div className={cn('relative flex-grow overflow-y-scroll py-8 px-4', className)} {...props} />;
+    return <div className={cn('relative flex-grow overflow-y-scroll px-4 py-8', className)} {...props} />;
 }
 
 function AuthenticatedLayoutHeader({ className, ...props }: React.ComponentProps<'div'>) {
@@ -69,7 +69,7 @@ function AuthenticatedLayout({ title, children }: AuthenticatedLayoutProps) {
     return (
         <>
             <Head title={title} />
-            <div className="mx-auto flex h-dvh max-w-md flex-col bg-background">
+            <div className="bg-background relative mx-auto flex h-dvh max-w-md flex-col">
                 {children}
                 <div className="grid grid-cols-4 gap-x-5 bg-slate-50">
                     {navigationItems.map((item, itemIdx) => (

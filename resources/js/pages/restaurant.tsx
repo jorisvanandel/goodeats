@@ -1,11 +1,11 @@
 import { Button } from '@/components/ui/button';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import { TextHeading, TextParagraph } from '@/components/ui/text';
-import { AuthenticatedLayout } from '@/layouts/authenticated-layout';
+import { AuthenticatedLayout, AuthenticatedLayoutBackButton } from '@/layouts/authenticated-layout';
 import { EngagementType } from '@/types/enums';
 import { Restaurant } from '@/types/resources';
 import { router } from '@inertiajs/react';
-import { BookmarkIcon, HeartIcon, StarIcon } from 'lucide-react';
+import { BookmarkIcon, CheckIcon, HeartIcon, StarIcon } from 'lucide-react';
 import { toast } from 'sonner';
 
 type RestaurantPageProps = {
@@ -21,19 +21,20 @@ export default function RestaurantPage({ restaurant, liked, favorited, bookmarke
             route('engagements.store', { restaurant_id: restaurant.id, type: type }),
             {},
             {
-                onSuccess: () => toast('Je ervaring met dit restaurant is opgeslagen.'),
+                onSuccess: () => toast('Je voorkeur voor dit restaurant is aangepast.'),
             },
         );
     }
 
     function removeEngagement(type: EngagementType) {
         router.delete(route('engagements.destroy', { restaurant_id: restaurant.id, type: type }), {
-            onSuccess: () => toast('Je ervaring met dit restaurant is opgeslagen.'),
+            onSuccess: () => toast('Je voorkeur voor dit restaurant is aangepast.'),
         });
     }
 
     return (
         <AuthenticatedLayout>
+            <AuthenticatedLayoutBackButton />
             <div className="flex h-full flex-col">
                 <div className="relative flex-grow overflow-y-scroll">
                     {/*<Button variant="outline" className="absolute top-5 right-5 z-10 size-10 rounded-full">*/}
@@ -62,32 +63,34 @@ export default function RestaurantPage({ restaurant, liked, favorited, bookmarke
                         </div>
                     </div>
                 </div>
-                <div className="border-border flex gap-x-2 border-t p-2">
+                <div className="border-border grid gap-2 border-t p-2">
                     <Button
-                        className="flex-grow"
+                        className="w-full"
                         variant={liked ? 'destructive' : 'default'}
                         onClick={() => (liked ? removeEngagement(EngagementType.Like) : addEngagement(EngagementType.Like))}
                     >
-                        <HeartIcon />
-                        {liked ? 'Verwijder like' : 'Dit was leuk'}
+                        {liked ? <CheckIcon /> : <HeartIcon />}
+                        {liked ? 'Verwijder like' : 'Voeg toe aan likes'}
                     </Button>
 
-                    <Button
-                        className=""
-                        variant={favorited ? 'secondary' : 'outline'}
-                        onClick={() => (favorited ? removeEngagement(EngagementType.Favorite) : addEngagement(EngagementType.Favorite))}
-                    >
-                        <StarIcon />
-                        {favorited ? 'Verwijder favoriet' : 'Dit was top'}
-                    </Button>
+                    <div className="flex gap-2">
+                        <Button
+                            className="flex-grow"
+                            variant={favorited ? 'outline' : 'secondary'}
+                            onClick={() => (favorited ? removeEngagement(EngagementType.Favorite) : addEngagement(EngagementType.Favorite))}
+                        >
+                            {favorited ? <CheckIcon /> : <StarIcon />}
+                            {favorited ? 'Verwijder van favorieten' : 'Voeg toe aan favorieten'}
+                        </Button>
 
-                    <Button
-                        className=""
-                        variant={bookmarked ? 'secondary' : 'outline'}
-                        onClick={() => (bookmarked ? removeEngagement(EngagementType.Bookmark) : addEngagement(EngagementType.Bookmark))}
-                    >
-                        <BookmarkIcon />
-                    </Button>
+                        <Button
+                            variant={bookmarked ? 'outline' : 'outline'}
+                            onClick={() => (bookmarked ? removeEngagement(EngagementType.Bookmark) : addEngagement(EngagementType.Bookmark))}
+                        >
+                            {bookmarked ? <CheckIcon /> : <BookmarkIcon />}
+                            {bookmarked ? 'Opgeslagen' : 'Opslaan'}
+                        </Button>
+                    </div>
                 </div>
             </div>
         </AuthenticatedLayout>
