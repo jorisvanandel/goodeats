@@ -13,6 +13,7 @@ import {
 import type { SharedData } from '@/types';
 import { useForm, usePage } from '@inertiajs/react';
 import { FormEvent } from 'react';
+import GuestLayout from '@/layouts/guest-layout';
 
 type FinishProfileForm = {
     username: string;
@@ -41,7 +42,7 @@ export default function FinishProfilePage() {
     }
 
     return (
-        <AuthenticatedLayout title="Profiel afronden">
+        <GuestLayout title="Profiel afronden">
             <AuthenticatedLayoutContent>
                 <AuthenticatedLayoutHeader>
                     <AuthenticatedLayoutTitle>Voordat je verder gaat...</AuthenticatedLayoutTitle>
@@ -55,7 +56,7 @@ export default function FinishProfilePage() {
                             <InputError message={errors.username} />
                         ) : (
                             <TextParagraph size="sm" variant="muted">
-                                Jouw profiel staat straks op: https://goodeats.nl/{data.username}
+                                Jouw profiel staat straks op: goodeats.nl/{data.username}
                             </TextParagraph>
                         )}
                     </div>
@@ -83,6 +84,6 @@ export default function FinishProfilePage() {
                     </Button>
                 </form>
             </AuthenticatedLayoutContent>
-        </AuthenticatedLayout>
+        </GuestLayout>
     );
 }

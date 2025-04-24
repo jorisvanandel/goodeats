@@ -52,7 +52,7 @@ export default function Register() {
 
     return (
         <AuthLayout title="Account aanmaken">
-            <div className="py-12">
+            <div className="px-4 py-12">
                 <div>
                     <TextHeading>Account aanmaken</TextHeading>
                     <TextParagraph variant="muted">Vul de gegevens hieronder in om een account te registreren.</TextParagraph>

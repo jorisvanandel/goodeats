@@ -19,11 +19,11 @@ type NavigationItem = {
 type AuthenticatedLayoutProps = PropsWithChildren & { title?: string };
 
 function AuthenticatedLayoutContent({ className, ...props }: React.ComponentProps<'div'>) {
-    return <div className={cn('relative flex-grow overflow-y-scroll p-4', className)} {...props} />;
+    return <div className={cn('relative flex-grow overflow-y-scroll py-8 px-4', className)} {...props} />;
 }
 
 function AuthenticatedLayoutHeader({ className, ...props }: React.ComponentProps<'div'>) {
-    return <div className={cn('mb-5 space-y-2', className)} {...props} />;
+    return <div className={cn('mb-5 space-y-1', className)} {...props} />;
 }
 
 function AuthenticatedLayoutTitle({ ...props }: React.ComponentProps<typeof TextHeading>) {
