@@ -15,6 +15,8 @@ class RestaurantController extends Controller
 {
     public function show(Restaurant $restaurant, #[CurrentUser] User $user): Response
     {
+        $restaurant->load('media');
+
         return Inertia::render('restaurant', [
             'restaurant' => RestaurantResource::make($restaurant),
             'liked' => $user->hasLikedRestaurant($restaurant),

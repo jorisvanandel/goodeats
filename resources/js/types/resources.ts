@@ -1,4 +1,4 @@
-import { City, EngagementType } from '@/types/enums';
+import { City } from '@/types/enums';
 
 export interface Model {
     id: number;
@@ -6,15 +6,16 @@ export interface Model {
     updated_at: string;
 }
 
+export interface Media {
+    full_url: string;
+    preview_url: string;
+}
+
 export interface Restaurant extends Model {
     name: string;
     city: City;
     address: string;
-    engagements?: {
-        [EngagementType.Like]: boolean;
-        [EngagementType.Favorite]: boolean;
-        [EngagementType.Bookmark]: boolean;
-    }
+    images: Media[];
 }
 
 export interface User extends Model {

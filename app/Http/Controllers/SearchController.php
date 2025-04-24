@@ -22,6 +22,7 @@ class SearchController extends Controller
                 $request->searchQuery() !== null,
                 fn (Builder $query) => $query->whereLike('name', "%{$request->searchQuery()}%")
             )
+            ->with(['media'])
             ->paginate();
 
         $users = User::query()

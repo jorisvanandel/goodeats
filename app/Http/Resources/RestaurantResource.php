@@ -21,6 +21,7 @@ class RestaurantResource extends JsonResource
             'name' => $this->resource->name,
             'city' => $this->resource->city->value,
             'address' => $this->resource->address,
+            'images' => MediaResource::collection($this->resource->getMedia('images')),
         ];
     }
 }

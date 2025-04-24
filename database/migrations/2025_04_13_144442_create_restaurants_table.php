@@ -10,6 +10,7 @@ return new class extends Migration
     {
         Schema::create('restaurants', function (Blueprint $table) {
             $table->id();
+            $table->string('google_places_id')->unique();
             $table->string('name');
             $table->string('city');
             $table->string('address');
