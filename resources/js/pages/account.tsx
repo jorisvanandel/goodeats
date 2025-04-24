@@ -66,11 +66,11 @@ export default function Account({ user, engagements, followers, followings }: Ac
                         </div>
                     </div>
                 </div>
-                <div className="mt-5 flex gap-2">
+                <div className="mt-8 flex gap-2">
                     <Button size="md" asChild variant="outline">
                         <Link href={route('profile', { user: user })}>
                             <LinkIcon />
-                            Bekijk publieke profiel
+                            Publiek profiel
                         </Link>
                     </Button>
                     <Button variant="outline" size="md" asChild>
