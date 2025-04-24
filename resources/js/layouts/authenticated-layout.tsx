@@ -69,7 +69,7 @@ function AuthenticatedLayout({ title, children }: AuthenticatedLayoutProps) {
     return (
         <>
             <Head title={title} />
-            <div className="mx-auto flex h-dvh max-w-md flex-col">
+            <div className="mx-auto flex h-dvh max-w-md flex-col bg-background">
                 {children}
                 <div className="grid grid-cols-4 gap-x-5 bg-slate-50">
                     {navigationItems.map((item, itemIdx) => (
