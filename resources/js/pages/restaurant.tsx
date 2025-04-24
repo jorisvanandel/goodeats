@@ -1,11 +1,11 @@
 import { Button } from '@/components/ui/button';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import { TextHeading, TextParagraph } from '@/components/ui/text';
-import AuthenticatedLayout from '@/layouts/authenticated-layout';
+import { AuthenticatedLayout } from '@/layouts/authenticated-layout';
 import { EngagementType } from '@/types/enums';
 import { Restaurant } from '@/types/resources';
 import { router } from '@inertiajs/react';
-import { BookmarkIcon, HeartIcon, ShareIcon, StarIcon } from 'lucide-react';
+import { BookmarkIcon, HeartIcon, StarIcon } from 'lucide-react';
 import { toast } from 'sonner';
 
 type RestaurantPageProps = {
@@ -33,7 +33,7 @@ export default function RestaurantPage({ restaurant, liked, favorited, bookmarke
     }
 
     return (
-        <AuthenticatedLayout isPadded={false} showBackButton>
+        <AuthenticatedLayout>
             <div className="flex h-full flex-col">
                 <div className="relative flex-grow overflow-y-scroll">
                     {/*<Button variant="outline" className="absolute top-5 right-5 z-10 size-10 rounded-full">*/}
@@ -43,11 +43,7 @@ export default function RestaurantPage({ restaurant, liked, favorited, bookmarke
                         <CarouselContent>
                             {restaurant.images.map((image, imageIdx) => (
                                 <CarouselItem key={imageIdx}>
-                                    <img
-                                        alt={restaurant.name}
-                                        className="h-60 w-full object-cover"
-                                        src={image.full_url}
-                                    />
+                                    <img alt={restaurant.name} className="h-60 w-full object-cover" src={image.full_url} />
                                 </CarouselItem>
                             ))}
                         </CarouselContent>

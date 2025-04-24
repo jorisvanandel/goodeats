@@ -20,6 +20,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * @property-read int $id
+ * @property ?string $oauth_driver_id = null
  * @property string $name
  * @property string $email
  * @property string $username

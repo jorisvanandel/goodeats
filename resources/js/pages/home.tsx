@@ -1,9 +1,11 @@
-import AuthenticatedLayout from '@/layouts/authenticated-layout';
+import { AuthenticatedLayout, AuthenticatedLayoutContent } from '@/layouts/authenticated-layout';
 
 export default function Home() {
     return (
         <AuthenticatedLayout>
-            <h2>Home</h2>
+            <AuthenticatedLayoutContent>
+                <h2>Home</h2>
+            </AuthenticatedLayoutContent>
         </AuthenticatedLayout>
     );
 }

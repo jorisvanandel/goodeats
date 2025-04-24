@@ -4,7 +4,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { TextParagraph } from '@/components/ui/text';
 import { UserCard } from '@/components/user-card';
-import AuthenticatedLayout from '@/layouts/authenticated-layout';
+import { AuthenticatedLayout, AuthenticatedLayoutContent } from '@/layouts/authenticated-layout';
 import { PaginatedCollection } from '@/types/pagination';
 import { Restaurant, User } from '@/types/resources';
 import { Deferred, router } from '@inertiajs/react';
@@ -55,77 +55,81 @@ export default function SearchPage({ restaurants, users }: SearchPageProps) {
     }
 
     return (
-        <AuthenticatedLayout>
-            <div className="relative">
-                <SearchIcon className="text-muted-foreground absolute inset-y-0 ml-3 size-5.5 h-full" />
-                <Input value={searchQuery} onChange={onSearchQueryChange} className="pl-11" placeholder="Zoeken..." />
-            </div>
-            <Tabs
-                onValueChange={(value) => handleTabValueChange(value as SearchResultsType)}
-                value={searchResultsType}
-                className="mt-5"
-                defaultValue="restaurants"
-            >
-                <TabsList className="w-full">
-                    <TabsTrigger value="restaurants">Restaurants</TabsTrigger>
-                    <TabsTrigger value="users">Gebruikers</TabsTrigger>
-                </TabsList>
-                <TabsContent value="restaurants">
-                    <div className="mt-5 grid gap-4">
-                        <Deferred
-                            fallback={
-                                <>
-                                    {Array.from({ length: 10 }, (_, idx) => (
-                                        <Skeleton key={idx} className="h-32" />
-                                    ))}
-                                </>
-                            }
-                            data="restaurants"
-                        >
-                            <>
-                                {loading && (
+        <AuthenticatedLayout title="Zoeken">
+            <AuthenticatedLayoutContent>
+                <div className="relative">
+                    <SearchIcon className="text-muted-foreground absolute inset-y-0 ml-3 size-5.5 h-full" />
+                    <Input value={searchQuery} onChange={onSearchQueryChange} className="pl-11" placeholder="Zoeken..." />
+                </div>
+                <Tabs
+                    onValueChange={(value) => handleTabValueChange(value as SearchResultsType)}
+                    value={searchResultsType}
+                    className="mt-5"
+                    defaultValue="restaurants"
+                >
+                    <TabsList className="w-full">
+                        <TabsTrigger value="restaurants">Restaurants</TabsTrigger>
+                        <TabsTrigger value="users">Gebruikers</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="restaurants">
+                        <div className="mt-5 grid gap-4">
+                            <Deferred
+                                fallback={
                                     <>
                                         {Array.from({ length: 10 }, (_, idx) => (
                                             <Skeleton key={idx} className="h-32" />
                                         ))}
                                     </>
-                                )}
-                                {restaurants?.data.length === 0 && <TextParagraph>Geen resultaten gevonden.</TextParagraph>}
-                                <>{restaurants?.data.map((restaurant) => <RestaurantCard key={restaurant.id} restaurant={restaurant} />)}</>
-                            </>
-                        </Deferred>
-                    </div>
-                </TabsContent>
-                <TabsContent value="users">
-                    <div className="mt-5 grid gap-4">
-                        <Deferred
-                            fallback={
+                                }
+                                data="restaurants"
+                            >
                                 <>
-                                    {Array.from({ length: 10 }, (_, idx) => (
-                                        <Skeleton key={idx} className="h-16" />
-                                    ))}
+                                    {loading && (
+                                        <>
+                                            {Array.from({ length: 10 }, (_, idx) => (
+                                                <Skeleton key={idx} className="h-32" />
+                                            ))}
+                                        </>
+                                    )}
+                                    {restaurants?.data.length === 0 && <TextParagraph>Geen resultaten gevonden.</TextParagraph>}
+                                    <>{restaurants?.data.map((restaurant) => <RestaurantCard key={restaurant.id} restaurant={restaurant} />)}</>
                                 </>
-                            }
-                            data="restaurants"
-                        >
-                            <>
-                                {loading && (
+                            </Deferred>
+                        </div>
+                    </TabsContent>
+                    <TabsContent value="users">
+                        <div className="mt-5 grid gap-4">
+                            <Deferred
+                                fallback={
                                     <>
                                         {Array.from({ length: 10 }, (_, idx) => (
                                             <Skeleton key={idx} className="h-16" />
                                         ))}
                                     </>
-                                )}
-                                {users?.data.length === 0 ? (
-                                    <TextParagraph>Geen resultaten gevonden.</TextParagraph>
-                                ) : (
-                                    <div className="divide-divide divide-y">{users?.data.map((user) => <UserCard key={user.id} user={user} />)}</div>
-                                )}
-                            </>
-                        </Deferred>
-                    </div>
-                </TabsContent>
-            </Tabs>
+                                }
+                                data="restaurants"
+                            >
+                                <>
+                                    {loading && (
+                                        <>
+                                            {Array.from({ length: 10 }, (_, idx) => (
+                                                <Skeleton key={idx} className="h-16" />
+                                            ))}
+                                        </>
+                                    )}
+                                    {users?.data.length === 0 ? (
+                                        <TextParagraph>Geen resultaten gevonden.</TextParagraph>
+                                    ) : (
+                                        <div className="divide-divide divide-y">
+                                            {users?.data.map((user) => <UserCard key={user.id} user={user} />)}
+                                        </div>
+                                    )}
+                                </>
+                            </Deferred>
+                        </div>
+                    </TabsContent>
+                </Tabs>
+            </AuthenticatedLayoutContent>
         </AuthenticatedLayout>
     );
 }

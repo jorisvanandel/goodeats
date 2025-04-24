@@ -17,6 +17,7 @@ class RestaurantFactory extends Factory
     public function definition(): array
     {
         return [
+            'google_places_id' => fake()->uuid,
             'name' => fake()->name(),
             'city' => fake()->randomElement(City::cases()),
             'address' => fake()->address(),

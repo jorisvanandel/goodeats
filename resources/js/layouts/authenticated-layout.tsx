@@ -1,8 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { Toaster } from '@/components/ui/sonner';
-import { TextHeading } from '@/components/ui/text';
+import { TextHeading, TextParagraph } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
-import { Link } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { ActivityIcon, ChevronLeft, HomeIcon, type LucideIcon, SearchIcon, UserIcon } from 'lucide-react';
 import { MouseEvent, type PropsWithChildren } from 'react';
 import { toast } from 'sonner';
@@ -16,8 +16,38 @@ type NavigationItem = {
     active: boolean;
 };
 
-type AuthenticatedLayoutProps = PropsWithChildren & { title?: string; isPadded?: boolean; showBackButton?: boolean };
-export default function AuthenticatedLayout({ title, isPadded = true, showBackButton = false, children }: AuthenticatedLayoutProps) {
+type AuthenticatedLayoutProps = PropsWithChildren & { title?: string };
+
+function AuthenticatedLayoutContent({ className, ...props }: React.ComponentProps<'div'>) {
+    return <div className={cn('relative flex-grow overflow-y-scroll p-4', className)} {...props} />;
+}
+
+function AuthenticatedLayoutHeader({ className, ...props }: React.ComponentProps<'div'>) {
+    return <div className={cn('mb-5 space-y-2', className)} {...props} />;
+}
+
+function AuthenticatedLayoutTitle({ ...props }: React.ComponentProps<typeof TextHeading>) {
+    return <TextHeading size="lg" {...props} />;
+}
+
+function AuthenticatedLayoutDescription({ ...props }: React.ComponentProps<typeof TextParagraph>) {
+    return <TextParagraph variant="muted" {...props} />;
+}
+
+function AuthenticatedLayoutBackButton({ className, ...props }: React.ComponentProps<typeof Button>) {
+    return (
+        <Button
+            onClick={() => window.history.back()}
+            variant="outline"
+            className={cn('absolute top-5 left-5 z-10 size-9 rounded-full', className)}
+            {...props}
+        >
+            <ChevronLeft className="size-5" />
+        </Button>
+    );
+}
+
+function AuthenticatedLayout({ title, children }: AuthenticatedLayoutProps) {
     const route = useRoute();
 
     const navigationItems: NavigationItem[] = [
@@ -38,20 +68,9 @@ export default function AuthenticatedLayout({ title, isPadded = true, showBackBu
 
     return (
         <>
+            <Head title={title} />
             <div className="mx-auto flex h-dvh max-w-md flex-col">
-                <div className={cn('relative flex-grow overflow-y-scroll', isPadded && 'p-4')}>
-                    {showBackButton && (
-                        <Button onClick={() => window.history.back()} variant="outline" className="absolute top-5 left-5 z-10 size-9 rounded-full">
-                            <ChevronLeft className="size-5" />
-                        </Button>
-                    )}
-                    {title && (
-                        <TextHeading size="xl" className="mb-5">
-                            {title}
-                        </TextHeading>
-                    )}
-                    {children}
-                </div>
+                {children}
                 <div className="grid grid-cols-4 gap-x-5 bg-slate-50">
                     {navigationItems.map((item, itemIdx) => (
                         <Link
@@ -73,3 +92,12 @@ export default function AuthenticatedLayout({ title, isPadded = true, showBackBu
         </>
     );
 }
+
+export {
+    AuthenticatedLayout,
+    AuthenticatedLayoutBackButton,
+    AuthenticatedLayoutContent,
+    AuthenticatedLayoutDescription,
+    AuthenticatedLayoutHeader,
+    AuthenticatedLayoutTitle,
+};

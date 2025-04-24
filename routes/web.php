@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\FinishProfileController;
 use App\Http\Controllers\FollowingsController;
 use App\Http\Controllers\EngagementsController;
 use App\Http\Controllers\RestaurantController;
@@ -20,6 +21,9 @@ Route::middleware(['guest'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/profiel-afronden', [FinishProfileController::class, 'show'])->name('finish-profile.show');
+    Route::post('/profiel-afronden', [FinishProfileController::class, 'store'])->name('finish-profile.store');
+
     Route::get('/home', function () {
         return Inertia::render('home');
     })->name('home');
@@ -44,11 +48,5 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('{user:username}', ViewProfileController::class)->name('profile');
 
-// Route::middleware(['auth', 'verified'])->group(function () {
-//     Route::get('dashboard', function () {
-//         return Inertia::render('dashboard');
-//     })->name('dashboard');
-// });
-
-// require __DIR__.'/settings.php';
- require __DIR__.'/auth.php';
+require __DIR__.'/oauth.php';
+require __DIR__.'/auth.php';

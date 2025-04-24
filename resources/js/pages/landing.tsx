@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import GuestLayout from '@/layouts/guest-layout';
 import { Link, useForm } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import { FormEvent } from 'react';
 
 type LoginForm = {
     email: string;
@@ -20,13 +20,13 @@ function LoginDrawer() {
         remember: false,
     });
 
-    const handleOnSubmit: FormEventHandler = (e) => {
+    function handleOnSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
         post('/login', {
             onFinish: () => reset('password'),
         });
-    };
+    }
 
     return (
         <Drawer>

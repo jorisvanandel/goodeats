@@ -1,13 +1,13 @@
 import { RestaurantCard } from '@/components/restaurant-card';
 import { Button } from '@/components/ui/button';
-import { TextHeading } from '@/components/ui/text';
+import { TextHeading, TextParagraph } from '@/components/ui/text';
+import { UserAvatar } from '@/components/user-avatar';
 import GuestLayout from '@/layouts/guest-layout';
+import type { SharedData } from '@/types';
 import { PaginatedCollection } from '@/types/pagination';
 import { Restaurant, User } from '@/types/resources';
 import { router, usePage } from '@inertiajs/react';
 import { ChevronLeft } from 'lucide-react';
-import type { SharedData } from '@/types';
-import { UserAvatar } from '@/components/user-avatar';
 
 type ProfilePageProps = {
     user: User;
@@ -38,7 +38,7 @@ export default function ProfilePage({ user, engagements, following }: ProfilePag
             </Button>
             <div className="relative flex flex-col px-4 py-8">
                 <div className="text-center">
-                    <UserAvatar size="xl" className="mx-auto" user={user}/>
+                    <UserAvatar size="xl" className="mx-auto" user={user} />
                     <TextHeading size="lg" className="mt-4">
                         {user.name}
                     </TextHeading>
@@ -58,6 +58,7 @@ export default function ProfilePage({ user, engagements, following }: ProfilePag
                         {engagements.data.map((restaurant) => (
                             <RestaurantCard key={restaurant.id} restaurant={restaurant} />
                         ))}
+                        {engagements.data.length === 0 && <TextParagraph variant="muted">Geen restaurants gevonden.</TextParagraph>}
                     </div>
                 </div>
             </div>

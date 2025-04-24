@@ -19,7 +19,7 @@ export interface Restaurant extends Model {
 }
 
 export interface User extends Model {
-    name: string;
+    name: string | null;
     email: string;
     username: string;
     avatar: Media | null;

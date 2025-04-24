@@ -16,11 +16,7 @@ export function RestaurantCard({ restaurant }: RestaurantCardProps) {
                     <CarouselContent>
                         {restaurant.images.map((image, imageIdx) => (
                             <CarouselItem key={imageIdx}>
-                                <img
-                                    alt={restaurant.name}
-                                    className="h-40 w-full object-cover"
-                                    src={image.preview_url}
-                                />
+                                <img alt={restaurant.name} className="h-40 w-full object-cover" src={image.preview_url} />
                             </CarouselItem>
                         ))}
                     </CarouselContent>

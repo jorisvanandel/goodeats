@@ -32,15 +32,22 @@ const paragraphVariants = cva(
                 default: "text-text",
                 muted: "text-muted-foreground"
             },
+            size: {
+                sm: 'text-sm',
+                default: 'text-base',
+                lg: 'text-lg',
+                xl: 'text-xl,'
+            }
         },
         defaultVariants: {
             variant: "default",
+            size: 'default'
         },
     }
 )
 
-function TextParagraph({ children, variant, className, ...props }: React.ComponentProps<'p'> & VariantProps<typeof paragraphVariants>) {
-    return <p className={cn(paragraphVariants({ variant }), className)} {...props}>{children}</p>
+function TextParagraph({ children, variant, size, className, ...props }: React.ComponentProps<'p'> & VariantProps<typeof paragraphVariants>) {
+    return <p className={cn(paragraphVariants({ variant, size }), className)} {...props}>{children}</p>
 }
 
 export {
