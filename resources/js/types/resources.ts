@@ -22,4 +22,5 @@ export interface User extends Model {
     name: string;
     email: string;
     username: string;
+    avatar: Media | null;
 }

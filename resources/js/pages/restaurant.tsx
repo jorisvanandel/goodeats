@@ -36,9 +36,9 @@ export default function RestaurantPage({ restaurant, liked, favorited, bookmarke
         <AuthenticatedLayout isPadded={false} showBackButton>
             <div className="flex h-full flex-col">
                 <div className="relative flex-grow overflow-y-scroll">
-                    <Button variant="outline" className="absolute top-5 right-5 z-10 size-10 rounded-full">
-                        <ShareIcon />
-                    </Button>
+                    {/*<Button variant="outline" className="absolute top-5 right-5 z-10 size-10 rounded-full">*/}
+                    {/*    <ShareIcon />*/}
+                    {/*</Button>*/}
                     <Carousel>
                         <CarouselContent>
                             {restaurant.images.map((image, imageIdx) => (

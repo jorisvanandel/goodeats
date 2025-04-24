@@ -13,6 +13,7 @@ use Inertia\Response;
 
 class AccountController extends Controller
 {
+
     public function __invoke(#[CurrentUser] User $user): Response
     {
         $engagements = $user->engagements()->paginate(10);

@@ -1,7 +1,7 @@
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { TextHeading, TextParagraph } from '@/components/ui/text';
 import { User } from '@/types/resources';
 import { Link } from '@inertiajs/react';
+import { UserAvatar } from '@/components/user-avatar';
 
 type UserCardProps = {
     user: User;
@@ -12,9 +12,7 @@ export function UserCard({ user }: UserCardProps) {
         <Link href={route('profile', { user: user })}>
             <div className="flex items-center justify-between py-3">
                 <div className="flex items-center gap-3">
-                    <Avatar className="size-12">
-                        <AvatarFallback>CN</AvatarFallback>
-                    </Avatar>
+                    <UserAvatar user={user}/>
                     <div>
                         <TextHeading size="xs">{user.name}</TextHeading>
                         <TextParagraph variant="muted">{user.username}</TextParagraph>

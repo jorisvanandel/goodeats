@@ -6,6 +6,7 @@ use App\Http\Controllers\FollowingsController;
 use App\Http\Controllers\EngagementsController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\UploadAvatarController;
 use App\Http\Controllers\ViewProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -38,6 +39,7 @@ Route::middleware(['auth'])->group(function () {
     })->name('activity');
 
     Route::get('/account', AccountController::class)->name('account');
+    Route::post('/avatar', UploadAvatarController::class)->name('upload-avatar');
 });
 
 Route::get('{user:username}', ViewProfileController::class)->name('profile');

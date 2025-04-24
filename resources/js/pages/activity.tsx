@@ -1,8 +1,8 @@
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Skeleton } from '@/components/ui/skeleton';
 import { TextHeading, TextParagraph } from '@/components/ui/text';
 import AuthenticatedLayout from '@/layouts/authenticated-layout';
 import { useState } from 'react';
+import { UserAvatar } from '@/components/user-avatar';
 
 export default function Profile() {
     const [loading, setLoading] = useState<boolean>(true);
@@ -26,9 +26,7 @@ export default function Profile() {
                     <div className="divide-divide divide-y">
                         {activities.map((activity, activityIdx) => (
                             <div key={activityIdx} className="flex gap-3 py-3">
-                                <Avatar className="size-10">
-                                    <AvatarFallback>CN</AvatarFallback>
-                                </Avatar>
+                                <UserAvatar size="sm" user={activity.user}/>
                                 <div>
                                     <TextHeading size="sm">{activity.user}</TextHeading>
                                     <TextParagraph variant="muted">{activity.description}</TextParagraph>

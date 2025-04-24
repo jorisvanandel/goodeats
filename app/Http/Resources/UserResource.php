@@ -21,6 +21,7 @@ class UserResource extends JsonResource
             'email'    => $this->resource->email,
             'username' => $this->resource->username,
             'name'     => $this->resource->name,
+            'avatar'   => MediaResource::make($this->resource->getFirstMedia('avatar'))
         ];
     }
 }

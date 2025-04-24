@@ -14,6 +14,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * @property-read int $id
@@ -24,11 +27,12 @@ use Illuminate\Notifications\Notifiable;
  * @property-read Carbon $updated_at
  * @property-read Carbon $created_at
  */
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, HasMedia
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory;
     use Notifiable;
+    use InteractsWithMedia;
 
     /**
      * @var list<string>
@@ -122,5 +126,18 @@ class User extends Authenticatable implements MustVerifyEmail
     public function hasBookmarkedRestaurant(Restaurant $restaurant): bool
     {
         return $this->hasEngagedWithRestaurant($restaurant, EngagementType::Bookmark);
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('avatar')
+            ->singleFile();
+    }
+
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        $this->addMediaConversion('preview')
+            ->performOnCollections('avatar')
+            ->width(100);
     }
 }
