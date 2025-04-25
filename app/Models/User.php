@@ -71,10 +71,10 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
             ->using(Engagement::class);
     }
 
-    public function likes(): BelongsToMany
+    public function visits(): BelongsToMany
     {
         return $this->engagements()
-            ->tap(fn (Builder $query) => $query->where('type', EngagementType::Like));
+            ->tap(fn (Builder $query) => $query->where('type', EngagementType::Visit));
     }
 
     public function bookmarks(): BelongsToMany
@@ -108,9 +108,9 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
         });
     }
 
-    public function hasLikedRestaurant(Restaurant $restaurant): bool
+    public function hasVisitedRestaurant(Restaurant $restaurant): bool
     {
-        return $this->hasEngagedWithRestaurant($restaurant, EngagementType::Like);
+        return $this->hasEngagedWithRestaurant($restaurant, EngagementType::Visit);
     }
 
     public function hasBookmarkedRestaurant(Restaurant $restaurant): bool

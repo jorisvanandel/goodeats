@@ -10,11 +10,11 @@ import { toast } from 'sonner';
 
 type RestaurantPageProps = {
     restaurant: Restaurant;
-    liked: boolean;
+    visited: boolean;
     bookmarked: boolean;
 };
 
-export default function RestaurantPage({ restaurant, liked, bookmarked }: RestaurantPageProps) {
+export default function RestaurantPage({ restaurant, visited, bookmarked }: RestaurantPageProps) {
     function addEngagement(type: EngagementType) {
         router.post(
             route('engagements.store', { restaurant_id: restaurant.id, type: type }),
@@ -62,25 +62,22 @@ export default function RestaurantPage({ restaurant, liked, bookmarked }: Restau
                         </div>
                     </div>
                 </div>
-                <div className="border-border grid gap-2 border-t p-2">
+                <div className="border-border grid gap-y-2 border-t p-2">
                     <Button
-                        className="w-full"
-                        variant={liked ? 'destructive' : 'default'}
-                        onClick={() => (liked ? removeEngagement(EngagementType.Like) : addEngagement(EngagementType.Like))}
+                        variant={visited ? 'outline' : 'default'}
+                        onClick={() => (visited ? removeEngagement(EngagementType.Visit) : addEngagement(EngagementType.Visit))}
                     >
-                        {liked ? <CheckIcon /> : <HeartIcon />}
-                        {liked ? 'Verwijder like' : 'Voeg toe aan likes'}
+                        {visited ? <CheckIcon /> : <HeartIcon />}
+                        Ben ik geweest
                     </Button>
 
-                    <div className="flex gap-2">
-                        <Button
-                            variant={bookmarked ? 'outline' : 'outline'}
-                            onClick={() => (bookmarked ? removeEngagement(EngagementType.Bookmark) : addEngagement(EngagementType.Bookmark))}
-                        >
-                            {bookmarked ? <CheckIcon /> : <BookmarkIcon />}
-                            {bookmarked ? 'Opgeslagen' : 'Opslaan'}
-                        </Button>
-                    </div>
+                    <Button
+                        variant={bookmarked ? 'outline' : 'secondary'}
+                        onClick={() => (bookmarked ? removeEngagement(EngagementType.Bookmark) : addEngagement(EngagementType.Bookmark))}
+                    >
+                        {bookmarked ? <CheckIcon /> : <BookmarkIcon />}
+                        Wil ik naar toe
+                    </Button>
                 </div>
             </div>
         </AuthenticatedLayout>

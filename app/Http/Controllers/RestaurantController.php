@@ -19,7 +19,7 @@ class RestaurantController extends Controller
 
         return Inertia::render('restaurant', [
             'restaurant' => RestaurantResource::make($restaurant),
-            'liked' => $user->hasLikedRestaurant($restaurant),
+            'visited' => $user->hasVisitedRestaurant($restaurant),
             'bookmarked' => $user->hasBookmarkedRestaurant($restaurant),
         ]);
     }

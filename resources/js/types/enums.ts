@@ -1,5 +1,5 @@
 export enum EngagementType {
-    Like = 'like',
+    Visit = 'visit',
     Bookmark = 'bookmark',
 }
 

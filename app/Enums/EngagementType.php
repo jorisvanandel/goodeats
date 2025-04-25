@@ -6,6 +6,6 @@ namespace App\Enums;
 
 enum EngagementType: string
 {
-    case Like = 'like';
+    case Visit = 'visit';
     case Bookmark = 'bookmark';
 }
