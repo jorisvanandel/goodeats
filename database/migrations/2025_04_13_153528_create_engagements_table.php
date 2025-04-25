@@ -12,6 +12,8 @@ return new class extends Migration
             $table->foreignId('restaurant_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->string('type');
+
+            $table->unique(['restaurant_id', 'user_id', 'type']);
         });
     }
 
