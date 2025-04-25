@@ -11,11 +11,10 @@ import { toast } from 'sonner';
 type RestaurantPageProps = {
     restaurant: Restaurant;
     liked: boolean;
-    favorited: boolean;
     bookmarked: boolean;
 };
 
-export default function RestaurantPage({ restaurant, liked, favorited, bookmarked }: RestaurantPageProps) {
+export default function RestaurantPage({ restaurant, liked, bookmarked }: RestaurantPageProps) {
     function addEngagement(type: EngagementType) {
         router.post(
             route('engagements.store', { restaurant_id: restaurant.id, type: type }),
@@ -74,15 +73,6 @@ export default function RestaurantPage({ restaurant, liked, favorited, bookmarke
                     </Button>
 
                     <div className="flex gap-2">
-                        <Button
-                            className="flex-grow"
-                            variant={favorited ? 'outline' : 'secondary'}
-                            onClick={() => (favorited ? removeEngagement(EngagementType.Favorite) : addEngagement(EngagementType.Favorite))}
-                        >
-                            {favorited ? <CheckIcon /> : <StarIcon />}
-                            {favorited ? 'Verwijder van favorieten' : 'Voeg toe aan favorieten'}
-                        </Button>
-
                         <Button
                             variant={bookmarked ? 'outline' : 'outline'}
                             onClick={() => (bookmarked ? removeEngagement(EngagementType.Bookmark) : addEngagement(EngagementType.Bookmark))}

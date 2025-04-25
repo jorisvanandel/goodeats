@@ -21,7 +21,6 @@ class RestaurantController extends Controller
             'restaurant' => RestaurantResource::make($restaurant),
             'liked' => $user->hasLikedRestaurant($restaurant),
             'bookmarked' => $user->hasBookmarkedRestaurant($restaurant),
-            'favorited' => $user->hasFavoritedRestaurant($restaurant),
         ]);
     }
 }
