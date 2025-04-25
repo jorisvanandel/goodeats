@@ -24,5 +24,9 @@ Route::get('/oauth/google/callback', function () {
 
     Auth::login($user);
 
+    if ($user->wasRecentlyCreated) {
+        return redirect(route('finish-profile.show'));
+    }
+
     return redirect('/home');
 })->name('oauth.google.callback');
