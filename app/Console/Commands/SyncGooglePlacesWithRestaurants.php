@@ -6,12 +6,13 @@ use App\Connectors\GooglePlacesApiConnector;
 use App\Enums\City;
 use App\Models\Restaurant;
 use App\Requests\GooglePlacesNearbySearchRequest;
+use App\Requests\GooglePlacesPhotoRequest;
 use Illuminate\Console\Command;
 use Saloon\Exceptions\SaloonException;
 
 class SyncGooglePlacesWithRestaurants extends Command
 {
-    private const SEARCH_RADIUS = 250;
+    private const SEARCH_RADIUS = 1000;
 
     /**
      * @var string
@@ -91,12 +92,17 @@ class SyncGooglePlacesWithRestaurants extends Command
                 'address' => $place['formattedAddress']
             ]);
 
-//            foreach (array_slice($place['photos'], 0, 5) as $photo) {
-//                $response = $this->connector->send(new GooglePlacesPhotoRequest($photo['name']));
-//
-//                $restaurant->addMediaFromUrl($response->json('photoUri'))
-//                    ->toMediaCollection('images');
-//            }
+            // @TODO: Probably at some point we should sync images as well instead of only adding initial sync.
+            if (!$restaurant->wasRecentlyCreated) {
+                continue;
+            }
+
+            foreach (array_slice($place['photos'], 0, 5) as $photo) {
+                $response = $this->connector->send(new GooglePlacesPhotoRequest($photo['name']));
+
+                $restaurant->addMediaFromUrl($response->json('photoUri'))
+                    ->toMediaCollection('images');
+            }
         }
 
         return self::SUCCESS;

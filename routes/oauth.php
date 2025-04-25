@@ -13,7 +13,7 @@ Route::get('/oauth/google/redirect', function () {
 Route::get('/oauth/google/callback', function () {
     $googleUser = Socialite::driver('google')->user();
 
-    Log::info($googleUser);
+    Log::info(print_r($googleUser));
 
     $user = User::query()->updateOrCreate([
         'oauth_driver_id' => $googleUser->id,
