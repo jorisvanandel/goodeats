@@ -39,6 +39,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
      * @var list<string>
      */
     protected $fillable = [
+        'oauth_driver_id',
         'name',
         'email',
         'username',
