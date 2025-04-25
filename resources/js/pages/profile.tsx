@@ -8,6 +8,7 @@ import { PaginatedCollection } from '@/types/pagination';
 import { Restaurant, User } from '@/types/resources';
 import { router, usePage } from '@inertiajs/react';
 import { ChevronLeft } from 'lucide-react';
+import { toast } from 'sonner';
 
 type ProfilePageProps = {
     user: User;
@@ -22,9 +23,13 @@ export default function ProfilePage({ user, engagements, following }: ProfilePag
         }
 
         if (following) {
-            router.delete(route('followings.destroy', { user_id: user.id }));
+            router.delete(route('followings.destroy', { user_id: user.id }), {
+                onSuccess: () => toast.success(`Je volgt ${user.name} niet meer.`)
+            });
         } else {
-            router.post(route('followings.store', { user_id: user.id }));
+            router.post(route('followings.store', { user_id: user.id }), {}, {
+                onSuccess: () => toast.success(`Je bent ${user.name} gaan volgen!`)
+            });
         }
     }
 

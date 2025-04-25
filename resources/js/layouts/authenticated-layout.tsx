@@ -88,7 +88,7 @@ function AuthenticatedLayout({ title, children }: AuthenticatedLayoutProps) {
                     ))}
                 </div>
             </div>
-            <Toaster position="top-center" richColors />
+            <Toaster position="top-center" />
         </>
     );
 }
