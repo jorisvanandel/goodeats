@@ -16,8 +16,9 @@ class GooglePlacesNearbySearchRequest extends Request implements HasBody
     protected Method $method = Method::POST;
 
     public function __construct(
-//        private readonly float $latitude,
-//        private readonly float $longitude,
+        private readonly float $latitude,
+        private readonly float $longitude,
+        private readonly int $radius
     )
     {
     }
@@ -38,14 +39,15 @@ class GooglePlacesNearbySearchRequest extends Request implements HasBody
     protected function defaultBody(): array
     {
         return [
-            'includedTypes' => ['fine_dining_restaurant'],
+            'includedPrimaryTypes' => ['restaurant'],
+            'includedTypes' => ['diner'],
             'locationRestriction' => [
                 'circle' => [
                     'center' => [
-                        'latitude' => '52.379189',
-                        'longitude' => '4.899431',
+                        'latitude' => (string) round($this->latitude, 4),
+                        'longitude' => (string) round($this->longitude, 4),
                     ],
-                    'radius' => 1000,
+                    'radius' => $this->radius,
                 ],
             ]
         ];

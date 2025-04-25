@@ -11,19 +11,14 @@ enum City: string
 
     /**
      * Get the coordinates that form a square of the center of the city. Read them as follows:
-     * Northwest[Lat,Lng], Northeast[Lat,Lng], Southwest[Lat,Lng], Southeast[Lat,Lng].
+     * North, South, West, East
      *
-     * @return array<list<float>>
+     * @return list<float>
      */
     public function coordinates(): array
     {
         return match ($this) {
-            self::Amsterdam => [
-                [52.3860, 4.8730],
-                [52.3860, 4.9210],
-                [52.3500, 4.8730],
-                [52.3500, 4.9210]
-            ],
+            self::Amsterdam => [52.3860, 52.3500, 4.8730, 4.9210],
             self::Utrecht => []
         };
     }

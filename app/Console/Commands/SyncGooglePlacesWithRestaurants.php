@@ -5,15 +5,14 @@ namespace App\Console\Commands;
 use App\Connectors\GooglePlacesApiConnector;
 use App\Enums\City;
 use App\Models\Restaurant;
-use App\Requests\GooglePlacesPhotoRequest;
 use App\Requests\GooglePlacesNearbySearchRequest;
 use Illuminate\Console\Command;
-use JsonException;
 use Saloon\Exceptions\SaloonException;
-use Throwable;
 
 class SyncGooglePlacesWithRestaurants extends Command
 {
+    private const SEARCH_RADIUS = 250;
+
     /**
      * @var string
      */
@@ -35,29 +34,69 @@ class SyncGooglePlacesWithRestaurants extends Command
             return Command::FAILURE;
         }
 
-        try {
-            $placesResponse = $this->connector->send(new GooglePlacesNearbySearchRequest());
+        [$north, $south, $west, $east] = $city->coordinates();
+        $uniquePlaces = [];
+        $deltaLat = round(self::SEARCH_RADIUS / 111_000, 4);
 
-            foreach ($placesResponse->json('places') ?? [] as $place) {
-                $restaurant = Restaurant::query()->updateOrCreate([
-                    'google_places_id' => $place['id'],
-                ], [
-                    'name' => $place['displayName']['text'],
-                    'city' => $city,
-                    'address' => $place['formattedAddress']
-                ]);
+        $requestCnt = 0;
 
-                foreach (array_slice($place['photos'], 0, 5) as $photo) {
-                    $response = $this->connector->send(new GooglePlacesPhotoRequest($photo['name']));
+        for ($lat = $south; $lat <= $north; $lat += $deltaLat) {
+            $deltaLng = $deltaLat / cos(deg2rad($lat));
 
-                    $restaurant->addMediaFromUrl($response->json('photoUri'))
-                        ->toMediaCollection('images');
+            for ($lng = $west; $lng <= $east; $lng += $deltaLng) {
+                sleep(5);
+                $this->info('Making request...');
+
+                $requestCnt++;
+//                continue;
+                try {
+                    $placesResponse = $this->connector->send(
+                        new GooglePlacesNearbySearchRequest(latitude: $lat, longitude: $lng, radius: self::SEARCH_RADIUS)
+                    );
+                } catch (SaloonException $e) {
+                    dd($e);
+                }
+
+                try {
+                    $places = $placesResponse->json('places') ?? [];
+                } catch (\JsonException $e) {
+                    dd($placesResponse);
+                }
+
+                if (count($places) === 20) {
+                    $this->error('More than 20 places found. Exiting...');
+//                    return Command::FAILURE;
+                } else {
+                    $this->info(sprintf('Found %s places.', count($places)));
+                }
+
+                foreach ($places as $place) {
+                    if (array_key_exists($place['id'], $uniquePlaces)) {
+                        $this->warn('Duplicate place, continueing...');
+                        continue;
+                    }
+
+                    $uniquePlaces[$place['id']] = $place;
                 }
             }
-        } catch (SaloonException $e) {
-            dd($e);
-        } catch (Throwable $e) {
-            dd($e);
+        }
+//        dd($requestCnt);
+
+        foreach ($uniquePlaces as $place) {
+            $restaurant = Restaurant::query()->updateOrCreate([
+                'google_places_id' => $place['id'],
+            ], [
+                'name' => $place['displayName']['text'],
+                'city' => $city,
+                'address' => $place['formattedAddress']
+            ]);
+
+//            foreach (array_slice($place['photos'], 0, 5) as $photo) {
+//                $response = $this->connector->send(new GooglePlacesPhotoRequest($photo['name']));
+//
+//                $restaurant->addMediaFromUrl($response->json('photoUri'))
+//                    ->toMediaCollection('images');
+//            }
         }
 
         return self::SUCCESS;
