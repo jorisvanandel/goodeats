@@ -3,6 +3,7 @@ import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carouse
 import { TextHeading, TextParagraph } from '@/components/ui/text';
 import { Restaurant } from '@/types/resources';
 import { Link } from '@inertiajs/react';
+import { ImageOffIcon } from 'lucide-react';
 
 type RestaurantCardProps = {
     restaurant: Restaurant;
@@ -19,6 +20,13 @@ export function RestaurantCard({ restaurant }: RestaurantCardProps) {
                                 <img alt={restaurant.name} className="h-40 w-full object-cover" src={image.preview_url} />
                             </CarouselItem>
                         ))}
+                        {restaurant.images.length === 0 && (
+                            <CarouselItem>
+                                <div className="h-60 w-full bg-accent flex justify-center items-center">
+                                    <ImageOffIcon className="size-12 text-muted-foreground"/>
+                                </div>
+                            </CarouselItem>
+                        )}
                     </CarouselContent>
                 </Carousel>
                 <CardContent className="py-2.5">

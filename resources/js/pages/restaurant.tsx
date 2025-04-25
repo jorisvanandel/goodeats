@@ -5,7 +5,7 @@ import { AuthenticatedLayout, AuthenticatedLayoutBackButton } from '@/layouts/au
 import { EngagementType } from '@/types/enums';
 import { Restaurant } from '@/types/resources';
 import { router } from '@inertiajs/react';
-import { BookmarkIcon, CheckIcon, HeartIcon, StarIcon } from 'lucide-react';
+import { BookmarkIcon, CheckIcon, HeartIcon, ImageOffIcon } from 'lucide-react';
 import { toast } from 'sonner';
 
 type RestaurantPageProps = {
@@ -46,6 +46,13 @@ export default function RestaurantPage({ restaurant, visited, bookmarked }: Rest
                                     <img alt={restaurant.name} className="h-60 w-full object-cover" src={image.full_url} />
                                 </CarouselItem>
                             ))}
+                            {restaurant.images.length === 0 && (
+                                <CarouselItem>
+                                    <div className="h-60 w-full bg-accent flex justify-center items-center">
+                                        <ImageOffIcon className="size-12 text-muted-foreground"/>
+                                    </div>
+                                </CarouselItem>
+                            )}
                         </CarouselContent>
                     </Carousel>
                     <div className="p-4">
