@@ -7,9 +7,6 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
-use Inertia\Response;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -18,6 +15,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        // @TODO: We should probably not allow users to login with no password (oauth users) or set random password
         $request->authenticate();
 
         $request->session()->regenerate();

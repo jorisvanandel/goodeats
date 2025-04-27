@@ -18,9 +18,18 @@ export interface Restaurant extends Model {
     images: Media[];
 }
 
+export interface EngagedRestaurant extends Restaurant {
+    visited: boolean;
+    bookmarked: boolean;
+}
+
 export interface User extends Model {
-    name: string | null;
+    name: string;
     email: string;
     username: string;
     avatar: Media | null;
+}
+
+export interface EngagedUser extends User {
+    following: boolean;
 }
