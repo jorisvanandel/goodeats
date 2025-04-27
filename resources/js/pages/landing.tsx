@@ -97,7 +97,7 @@ export default function LandingPage() {
                 <div className="grid gap-y-3">
                     <LoginDrawer />
                     <Button asChild>
-                        <Link href={route('register')}>Registreren</Link>
+                        <Link prefetch="mount" href={route('register')}>Registreren</Link>
                     </Button>
                 </div>
             </div>

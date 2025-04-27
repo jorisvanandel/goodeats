@@ -63,6 +63,7 @@ function AuthenticatedLayout({ title, children }: AuthenticatedLayoutProps) {
                 <div className="grid grid-cols-4 gap-x-5 bg-slate-50">
                     {navigationItems.map((item, itemIdx) => (
                         <Link
+                            prefetch="mount"
                             key={itemIdx}
                             className={cn(
                                 'flex h-16 flex-col items-center border-t-3 py-3',
