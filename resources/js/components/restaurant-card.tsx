@@ -59,7 +59,7 @@ export function RestaurantCard({ restaurant }: RestaurantCardProps) {
                 {'bookmarked' in restaurant && 'visited' in restaurant && (
                     <div className="mt-2 grid grid-cols-2 gap-2">
                         <Button
-
+                            size="sm"
                             variant={restaurant.visited ? 'outline' : 'default'}
                             onClick={() => (restaurant.visited ? removeEngagement(EngagementType.Visit) : addEngagement(EngagementType.Visit))}
                         >
@@ -68,7 +68,7 @@ export function RestaurantCard({ restaurant }: RestaurantCardProps) {
                         </Button>
 
                         <Button
-
+                            size="sm"
                             variant={restaurant.bookmarked ? 'outline' : 'secondary'}
                             onClick={() => (restaurant.bookmarked ? removeEngagement(EngagementType.Bookmark) : addEngagement(EngagementType.Bookmark))}
                         >

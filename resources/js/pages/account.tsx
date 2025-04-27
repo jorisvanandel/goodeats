@@ -1,4 +1,3 @@
-import { RestaurantCard } from '@/components/restaurant-card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -7,19 +6,18 @@ import { UserAvatar } from '@/components/user-avatar';
 import { UserCard } from '@/components/user-card';
 import { AuthenticatedLayout, AuthenticatedLayoutContent, AuthenticatedLayoutTitle } from '@/layouts/authenticated-layout';
 import { PaginatedCollection } from '@/types/pagination';
-import { Restaurant, User } from '@/types/resources';
+import { User } from '@/types/resources';
 import { Link, router } from '@inertiajs/react';
 import { LinkIcon, LogOutIcon } from 'lucide-react';
 import { toast } from 'sonner';
 
 type AccountPageProps = {
     user: User;
-    engagements: PaginatedCollection<Restaurant>;
     followers: PaginatedCollection<User>;
     followings: PaginatedCollection<User>;
 };
 
-export default function Account({ user, engagements, followers, followings }: AccountPageProps) {
+export default function Account({ user, followers, followings }: AccountPageProps) {
     function handleAvatarInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         if (!e.target.files) {
             return;
@@ -79,22 +77,11 @@ export default function Account({ user, engagements, followers, followings }: Ac
                         </Link>
                     </Button>
                 </div>
-                <Tabs className="mt-5" defaultValue="engagements">
-                    <TabsList className="grid w-full grid-cols-3">
-                        <TabsTrigger value="engagements">Restaurants</TabsTrigger>
+                <Tabs className="mt-5" defaultValue="followers">
+                    <TabsList className="grid w-full grid-cols-2">
                         <TabsTrigger value="followers">Volgers</TabsTrigger>
                         <TabsTrigger value="following">Volgend</TabsTrigger>
                     </TabsList>
-                    <TabsContent className="mt-4 grid gap-y-3 px-3" value="engagements">
-                        {engagements.data.map((restaurant, restaurantIdx) => (
-                            <RestaurantCard restaurant={restaurant} key={restaurantIdx} />
-                        ))}
-                        {engagements.data.length === 0 && (
-                            <TextParagraph className="mx-auto max-w-sm text-center" variant="muted">
-                                Je hebt nog geen restauranten toegevoegd aan je lijst.
-                            </TextParagraph>
-                        )}
-                    </TabsContent>
                     <TabsContent className="mt-4 px-3" value="followers">
                         <div className="divide-divide divide-y">
                             {followers.data.map((user) => (

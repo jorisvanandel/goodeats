@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\FinishProfileController;
 use App\Http\Controllers\FollowingsController;
 use App\Http\Controllers\EngagementsController;
+use App\Http\Controllers\MyListsController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UploadAvatarController;
@@ -38,9 +39,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/followings', [FollowingsController::class, 'store'])->name('followings.store');
     Route::delete('/followings', [FollowingsController::class, 'destroy'])->name('followings.destroy');
 
-    Route::get('/activiteit', function () {
-        return Inertia::render('activity');
-    })->name('activity');
+    Route::get('/mijn-lijsten', MyListsController::class)->name('my-lists');
 
     Route::get('/account', AccountController::class)->name('account');
     Route::post('/avatar', UploadAvatarController::class)->name('upload-avatar');

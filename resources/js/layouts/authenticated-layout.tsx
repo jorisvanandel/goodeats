@@ -3,16 +3,14 @@ import { Toaster } from '@/components/ui/sonner';
 import { TextHeading, TextParagraph } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
 import { Head, Link } from '@inertiajs/react';
-import { ActivityIcon, ChevronLeft, HomeIcon, type LucideIcon, SearchIcon, UserIcon } from 'lucide-react';
-import { MouseEvent, type PropsWithChildren } from 'react';
-import { toast } from 'sonner';
+import { ChevronLeft, HomeIcon, ListIcon, type LucideIcon, SearchIcon, UserIcon } from 'lucide-react';
+import { type PropsWithChildren } from 'react';
 import { useRoute } from 'ziggy-js';
 
 type NavigationItem = {
     label: string;
     icon: LucideIcon;
     href: string;
-    disabled?: boolean;
     active: boolean;
 };
 
@@ -53,18 +51,9 @@ function AuthenticatedLayout({ title, children }: AuthenticatedLayoutProps) {
     const navigationItems: NavigationItem[] = [
         { label: 'Home', icon: HomeIcon, href: route('home'), active: route().current('home') },
         { label: 'Zoeken', icon: SearchIcon, href: route('search'), active: route().current('search') },
-        { label: 'Activiteit', icon: ActivityIcon, href: '#', disabled: true, active: route().current('activity') },
+        { label: 'Mijn lijsten', icon: ListIcon, href: route('my-lists'), active: route().current('my-lists') },
         { label: 'Account', icon: UserIcon, href: route('account'), active: route().current('account') },
     ];
-
-    const handleOnNavigationItemClick = (event: MouseEvent, item: NavigationItem) => {
-        if (!item.disabled) {
-            return;
-        }
-
-        event.preventDefault();
-        toast.info('Deze pagina is nog niet beschikbaar. Kom later terug!');
-    };
 
     return (
         <>
@@ -80,7 +69,6 @@ function AuthenticatedLayout({ title, children }: AuthenticatedLayoutProps) {
                                 item.active ? 'border-t-primary text-primary' : 'border-t-transparent',
                             )}
                             href={item.href}
-                            onClick={(e) => handleOnNavigationItemClick(e, item)}
                         >
                             <item.icon className="size-5 shrink-0" />
                             <span className="mt-2 text-xs">{item.label}</span>
