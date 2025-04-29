@@ -31,7 +31,7 @@ class SyncGooglePlacesWithRestaurants extends Command
             $deltaLng = $deltaLat / cos(deg2rad($lat));
 
             for ($lng = $west; $lng <= $east; $lng += $deltaLng) {
-                PerformGooglePlacesNearbySearchRequestJob::dispatch($lat, $lng, self::SEARCH_RADIUS)
+                PerformGooglePlacesNearbySearchRequestJob::dispatch($lat, $lng, self::SEARCH_RADIUS, $city)
                     ->delay(10);
             }
         }
