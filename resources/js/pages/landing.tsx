@@ -6,6 +6,8 @@ import { Label } from '@/components/ui/label';
 import GuestLayout from '@/layouts/guest-layout';
 import { Link, useForm } from '@inertiajs/react';
 import { FormEvent } from 'react';
+import { Separator } from '@/components/ui/separator';
+import { GoogleIcon } from '@/components/oauth-provider-icons'
 
 type LoginForm = {
     email: string;
@@ -69,6 +71,18 @@ function LoginDrawer() {
                             <InputError message={errors.password} />
                         </div>
                     </form>
+
+                    <div className="py-5 relative flex h-fit items-center">
+                        <div className="bg-background text-muted-foreground absolute left-1/2 -translate-x-1/2 px-2">Of</div>
+                        <Separator className="my-auto" />
+                    </div>
+
+                    <Button className="w-full" variant="outline" asChild>
+                        <a href={route('oauth.google.redirect')}>
+                            <GoogleIcon />
+                            Log in met Google
+                        </a>
+                    </Button>
                 </div>
                 <DrawerFooter>
                     <Button type="submit" form="login-form">
@@ -97,7 +111,9 @@ export default function LandingPage() {
                 <div className="grid gap-y-3">
                     <LoginDrawer />
                     <Button asChild>
-                        <Link prefetch="mount" href={route('register')}>Registreren</Link>
+                        <Link prefetch="mount" href={route('register')}>
+                            Registreren
+                        </Link>
                     </Button>
                 </div>
             </div>
