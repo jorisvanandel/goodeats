@@ -35,14 +35,11 @@ class SyncRestaurantWithGooglePlaceJob implements ShouldQueue
             'address' => $this->data['shortFormattedAddress']
         ]);
 
-        // @TODO: Probably at some point we should sync images as well instead of only adding initial sync.
-        if (!$restaurant->wasRecentlyCreated) {
-            return;
-        }
+        $restaurant->clearMediaCollection('images');
 
         $connector = app(GooglePlacesApiConnector::class);
 
-        foreach (array_slice($this->data['photos'], 0, 5) as $photo) {
+        foreach (array_slice($this->data['photos'] ?? [], 0, 5) as $photo) {
             try {
                 $response = $connector->send(new GooglePlacesPhotoRequest($photo['name']));
             } catch (\Exception $e) {
