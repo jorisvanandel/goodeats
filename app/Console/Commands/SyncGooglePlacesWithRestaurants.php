@@ -9,7 +9,7 @@ use Symfony\Component\Console\Command\Command as SymfonyCommand;
 
 class SyncGooglePlacesWithRestaurants extends Command
 {
-    private const SEARCH_RADIUS = 500;
+    private const SEARCH_RADIUS = 250;
 
     /**
      * @var string
