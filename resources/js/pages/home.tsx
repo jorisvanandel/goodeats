@@ -68,7 +68,7 @@ function FeedbackDrawer({ onOpenChange, ...props } : React.ComponentProps<typeof
 function Banner({ onActionClick }: { onActionClick: () => void; }) {
     return (
         <div
-            className="relative isolate flex items-center gap-x-6 overflow-hidden bg-gray-50 px-6 py-2.5 sm:px-3.5 sm:before:flex-1">
+            className="relative isolate flex items-center gap-x-6 overflow-hidden bg-gray-50 px-6 py-2.5 sm:px-3.5">
             <div
                 aria-hidden="true"
                 className="absolute top-1/2 left-[max(-7rem,calc(50%-52rem))] -z-10 -translate-y-1/2 transform-gpu blur-2xl"
@@ -109,7 +109,7 @@ export default function Home() {
     const [feedbackDrawerOpen, setFeedbackDrawerOpen] = useState<boolean>(false);
 
     return (
-        <AuthenticatedLayout>
+        <AuthenticatedLayout title="Home">
             <Banner onActionClick={() => setFeedbackDrawerOpen(true)}/>
             <AuthenticatedLayoutContent>
                 <AuthenticatedLayoutHeader>

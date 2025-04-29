@@ -9,7 +9,7 @@ use Symfony\Component\Console\Command\Command as SymfonyCommand;
 
 class SyncGooglePlacesWithRestaurants extends Command
 {
-    private const SEARCH_RADIUS = 250;
+    private const SEARCH_RADIUS = 150;
 
     /**
      * @var string
@@ -27,12 +27,16 @@ class SyncGooglePlacesWithRestaurants extends Command
         [$north, $south, $west, $east] = $city->coordinates();
         $deltaLat = round(self::SEARCH_RADIUS / 111_000, 4);
 
+        $requestCnt = 1;
+
         for ($lat = $south; $lat <= $north; $lat += $deltaLat) {
             $deltaLng = $deltaLat / cos(deg2rad($lat));
 
             for ($lng = $west; $lng <= $east; $lng += $deltaLng) {
                 PerformGooglePlacesNearbySearchRequestJob::dispatch($lat, $lng, self::SEARCH_RADIUS, $city)
-                    ->delay(10);
+                    ->delay($requestCnt * 10);
+                
+                $requestCnt++;
             }
         }
 
