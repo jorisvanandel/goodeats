@@ -5,7 +5,7 @@ import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { TextHeading, TextParagraph } from '@/components/ui/text';
 import AuthLayout from '@/layouts/guest-layout';
-import { useForm } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEvent } from 'react';
 
@@ -52,10 +52,13 @@ export default function Register() {
 
     return (
         <AuthLayout title="Account aanmaken">
-            <div className="px-4 py-12">
+            <div className="px-4 py-4">
                 <div>
-                    <TextHeading>Account aanmaken</TextHeading>
-                    <TextParagraph variant="muted">Vul de gegevens hieronder in om een account te registreren.</TextParagraph>
+                    <TextHeading size="lg">Account aanmaken</TextHeading>
+                    <div className="mt-4">
+                        <TextParagraph variant="muted">Vul de gegevens hieronder in om een account te registreren.</TextParagraph>
+                        <TextParagraph className="mt-2" variant="muted">Door te registreren ga je akkoord met onze <Link className="text-link" href={route('privacy-policy')}>privacyverklaring</Link>.</TextParagraph>
+                    </div>
                 </div>
                 <form className="mt-5 flex flex-col gap-6" onSubmit={handleOnSubmit}>
                     <div className="grid gap-6">

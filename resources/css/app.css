@@ -29,6 +29,8 @@
 
     --color-text: var(--text);
 
+    --color-link: var(--link);
+
     --color-muted: var(--muted);
     --color-muted-foreground: var(--muted-foreground);
 
@@ -88,6 +90,7 @@
     --secondary: oklch(0.96 0.0408 85.29);
     --secondary-foreground: var(--color-yellow-800);
     --text: var(--color-slate-900);
+    --link: var(--color-blue-600);
     --muted: oklch(0.97 0 0);
     --muted-foreground: oklch(0.556 0 0);
     --accent: oklch(0.97 0 0);

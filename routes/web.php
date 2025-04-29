@@ -18,6 +18,10 @@ Route::middleware(['guest'])->group(function () {
         return Inertia::render('landing');
     })->name('landing');
 
+    Route::get('/privacy', function () {
+        return Inertia::render('privacy-policy');
+    })->name('privacy-policy');
+
     Route::get('/registreren', [RegisteredUserController::class, 'create'])->name('register');
 });
 
