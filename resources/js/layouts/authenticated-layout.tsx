@@ -1,11 +1,11 @@
 import { Button } from '@/components/ui/button';
-import { Toaster } from '@/components/ui/sonner';
 import { TextHeading, TextParagraph } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
-import { Head, Link } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { ChevronLeft, HomeIcon, ListIcon, type LucideIcon, SearchIcon, UserIcon } from 'lucide-react';
 import { type PropsWithChildren } from 'react';
 import { useRoute } from 'ziggy-js';
+import { RootLayout } from '@/layouts/root-layout';
 
 type NavigationItem = {
     label: string;
@@ -56,8 +56,7 @@ function AuthenticatedLayout({ title, children }: AuthenticatedLayoutProps) {
     ];
 
     return (
-        <>
-            <Head title={title} />
+        <RootLayout title={title}>
             <div className="bg-background relative mx-auto flex h-dvh max-w-md flex-col">
                 {children}
                 <div className="grid grid-cols-4 gap-x-5 bg-slate-50">
@@ -77,8 +76,7 @@ function AuthenticatedLayout({ title, children }: AuthenticatedLayoutProps) {
                     ))}
                 </div>
             </div>
-            <Toaster position="top-center" />
-        </>
+        </RootLayout>
     );
 }
 

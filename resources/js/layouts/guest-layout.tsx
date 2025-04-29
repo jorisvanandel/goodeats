@@ -1,7 +1,6 @@
 import { cn } from '@/lib/utils';
-import { Head } from '@inertiajs/react';
 import { type PropsWithChildren } from 'react';
-import { Toaster } from '@/components/ui/sonner';
+import { RootLayout } from '@/layouts/root-layout';
 
 type GuestLayoutProps = {
     title: string;
@@ -10,10 +9,10 @@ type GuestLayoutProps = {
 
 export default function GuestLayout({ children, className, title }: PropsWithChildren<GuestLayoutProps>) {
     return (
-        <div className={cn('bg-background relative z-10 mx-auto h-dvh w-screen max-w-md', className)}>
-            <Head title={title} />
-            {children}
-            <Toaster position="top-center" />
-        </div>
+        <RootLayout title={title}>
+            <div className={cn('bg-background relative z-10 mx-auto h-dvh w-screen max-w-md', className)}>
+                {children}
+            </div>
+        </RootLayout>
     );
 }
