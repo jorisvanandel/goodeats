@@ -7,11 +7,12 @@ import { UserCard } from '@/components/user-card';
 import { AuthenticatedLayout, AuthenticatedLayoutContent } from '@/layouts/authenticated-layout';
 import { PaginatedCollection } from '@/types/pagination';
 import { Restaurant, User } from '@/types/resources';
-import { Deferred, router } from '@inertiajs/react';
+import { Deferred, Link, router } from '@inertiajs/react';
 import { SearchIcon } from 'lucide-react';
 import { ChangeEvent, useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 import { useRoute } from 'ziggy-js';
+import { Button } from '@/components/ui/button';
 
 type SearchPageProps = {
     restaurants: PaginatedCollection<Restaurant> | undefined;
@@ -48,7 +49,7 @@ export default function SearchPage({ restaurants, users }: SearchPageProps) {
 
         router.get(
             window.location.href,
-            { tab: type, query: undefined },
+            { tab: type, query: undefined, page: undefined },
             {
                 preserveState: true,
                 onBefore: () => setLoading(true),
@@ -94,8 +95,25 @@ export default function SearchPage({ restaurants, users }: SearchPageProps) {
                                             ))}
                                         </>
                                     )}
-                                    {restaurants?.data.length === 0 && <TextParagraph>Geen resultaten gevonden.</TextParagraph>}
-                                    <>{restaurants?.data.map((restaurant) => <RestaurantCard key={restaurant.id} restaurant={restaurant} />)}</>
+                                    {restaurants?.data.length === 0 ? (
+                                        <TextParagraph>Geen resultaten gevonden.</TextParagraph>
+                                    ) : (
+                                        <>
+                                            {restaurants?.data.map((restaurant) => <RestaurantCard key={restaurant.id} restaurant={restaurant} />)}
+                                            <div className="flex justify-between">
+                                                <Button variant="outline" asChild>
+                                                    <Link className={restaurants?.links.prev === null ? 'pointer-events-none opacity-50' : ''} href={restaurants?.links.prev ?? '#'}>
+                                                        Vorige
+                                                    </Link>
+                                                </Button>
+                                                <Button variant="outline" asChild>
+                                                    <Link className={restaurants?.links.next === null ? 'pointer-events-none opacity-50' : ''} href={restaurants?.links.next ?? '#'}>
+                                                        Volgende
+                                                    </Link>
+                                                </Button>
+                                            </div>
+                                        </>
+                                    )}
                                 </>
                             </Deferred>
                         </div>
@@ -123,9 +141,23 @@ export default function SearchPage({ restaurants, users }: SearchPageProps) {
                                     {users?.data.length === 0 ? (
                                         <TextParagraph>Geen resultaten gevonden.</TextParagraph>
                                     ) : (
-                                        <div className="divide-divide divide-y">
-                                            {users?.data.map((user) => <UserCard key={user.id} user={user} />)}
-                                        </div>
+                                        <>
+                                            <div className="divide-divide divide-y">
+                                                {users?.data.map((user) => <UserCard key={user.id} user={user} />)}
+                                            </div>
+                                            <div className="flex justify-between">
+                                                <Button variant="outline" asChild>
+                                                    <Link className={users?.links.prev === null ? 'pointer-events-none opacity-50' : ''} href={restaurants?.links.prev ?? '#'}>
+                                                        Vorige
+                                                    </Link>
+                                                </Button>
+                                                <Button variant="outline" asChild>
+                                                    <Link className={users?.links.next === null ? 'pointer-events-none opacity-50' : ''} href={restaurants?.links.next ?? '#'}>
+                                                        Volgende
+                                                    </Link>
+                                                </Button>
+                                            </div>
+                                        </>
                                     )}
                                 </>
                             </Deferred>

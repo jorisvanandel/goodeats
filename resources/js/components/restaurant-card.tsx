@@ -53,7 +53,7 @@ export function RestaurantCard({ restaurant }: RestaurantCardProps) {
                     </CarouselContent>
                 </Carousel>
             </Link>
-            <CardContent className="py-3">
+            <CardContent className="py-3 px-3">
                 <TextHeading>{restaurant.name}</TextHeading>
                 <TextParagraph variant="muted">{restaurant.address}</TextParagraph>
                 {'bookmarked' in restaurant && 'visited' in restaurant && (

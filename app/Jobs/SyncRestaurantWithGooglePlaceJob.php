@@ -32,7 +32,7 @@ class SyncRestaurantWithGooglePlaceJob implements ShouldQueue
         ], [
             'name' => $this->data['displayName']['text'],
             'city' => $this->city,
-            'address' => $this->data['formattedAddress']
+            'address' => $this->data['shortFormattedAddress']
         ]);
 
         // @TODO: Probably at some point we should sync images as well instead of only adding initial sync.
