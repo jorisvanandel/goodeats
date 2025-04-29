@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\FinishProfileController;
 use App\Http\Controllers\FollowingsController;
 use App\Http\Controllers\EngagementsController;
@@ -47,6 +48,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/account', AccountController::class)->name('account');
     Route::post('/avatar', UploadAvatarController::class)->name('upload-avatar');
+
+    Route::post('/feedback', FeedbackController::class)->name('feedback');
 });
 
 Route::get('{user:username}', ViewProfileController::class)->name('profile');
