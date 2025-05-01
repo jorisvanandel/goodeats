@@ -30,7 +30,7 @@ function AddVisitEngagementDrawer({ onOpenChange, restaurant, ...props }: AddVis
                 }
 
                 reset();
-                toast.success('Je hebt aangegeven dat je hier nog heen wilt.');
+                toast.success('Je ervaring met dit restaurant is opgeslagen!');
             },
         });
     }
