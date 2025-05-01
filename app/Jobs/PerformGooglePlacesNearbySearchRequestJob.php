@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Connectors\GooglePlacesApiConnector;
 use App\Enums\City;
+use App\Exceptions\GooglePlacesNearbySearchRequestException;
 use App\Requests\GooglePlacesNearbySearchRequest;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
@@ -40,9 +41,12 @@ class PerformGooglePlacesNearbySearchRequestJob implements ShouldQueue
         try {
             $places = $placesResponse->json('places') ?? [];
 
-            dd($places);
             if (count($places) === 20) {
-                $this->fail('More than 20 places found. Search radius should be narrowed.');
+                $exception = new GooglePlacesNearbySearchRequestException(
+                    '20 or more places found. Search radius should be narrowed.'
+                );
+                report($exception);
+                $this->fail($exception);
             }
 
             foreach ($places as $place) {
