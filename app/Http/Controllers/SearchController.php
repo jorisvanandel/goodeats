@@ -24,7 +24,7 @@ class SearchController extends Controller
                 fn (Builder $query) => $query->whereLike('name', "%{$request->searchQuery()}%")
             )
             ->with(['media'])
-            ->paginate(5);
+            ->paginate(10);
 
         $users = User::query()
             ->where('id', '!=', $user->id)
