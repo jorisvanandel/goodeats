@@ -33,7 +33,7 @@ class SyncRestaurantWithGooglePlaceJob implements ShouldQueue
 
         $connector = app(GooglePlacesApiConnector::class);
 
-        foreach (array_slice($this->data['photos'] ?? [], 0, 1) as $photo) {
+        foreach (array_slice($this->data['photos'] ?? [], 0, 5) as $photo) {
             try {
                 $response = $connector->send(new GooglePlacesPhotoRequest($photo['name']));
             } catch (\Exception $e) {
