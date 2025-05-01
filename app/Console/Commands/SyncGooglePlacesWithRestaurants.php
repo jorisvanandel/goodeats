@@ -3,6 +3,9 @@
 namespace App\Console\Commands;
 
 use App\Enums\City;
+use App\Jobs\PerformGooglePlacesNearbySearchRequestJob;
+use App\Models\Pivot\Engagement;
+use App\Models\Restaurant;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Command\Command as SymfonyCommand;
 
@@ -13,7 +16,7 @@ class SyncGooglePlacesWithRestaurants extends Command
     /**
      * @var string
      */
-    protected $signature = 'app:sync-google-places-with-restaurants {--city=}';
+    protected $signature = 'app:sync-google-places-with-restaurants {--city=} {--flush}';
 
     public function handle(): int
     {
@@ -29,6 +32,11 @@ class SyncGooglePlacesWithRestaurants extends Command
         $deltaLat = round(self::SEARCH_RADIUS / 111_000, 4);
 
         $requestCnt = 1;
+
+        if ($this->option('flush')) {
+            Engagement::query()->delete();
+            Restaurant::query()->delete();
+        }
 
         for ($lat = $south; $lat <= $north; $lat += $deltaLat) {
             $deltaLng = $deltaLat / cos(deg2rad($lat));

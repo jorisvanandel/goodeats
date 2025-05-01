@@ -18,8 +18,8 @@ enum City: string
     public function coordinates(): array
     {
         return match ($this) {
-            self::Amsterdam => [52.3950, 52.3300, 4.8430, 4.9510],
-//            self::Amsterdam => [52.3860, 52.3500, 4.8730, 4.9210],
+//            self::Amsterdam => [52.3950, 52.3300, 4.8430, 4.9510],
+            self::Amsterdam => [52.3860, 52.3500, 4.8730, 4.9210],
             self::Utrecht => []
         };
     }
