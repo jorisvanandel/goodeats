@@ -29,7 +29,7 @@ class GooglePlacesNearbySearchRequest extends Request implements HasBody
     protected function defaultHeaders(): array
     {
         return [
-            'X-Goog-FieldMask' => 'places.id,places.displayName,places.shortFormattedAddress,places.photos',
+            'X-Goog-FieldMask' => 'places.id,places.displayName,places.shortFormattedAddress,places.types',
             'X-Goog-Api-Key' => config('services.google.api_key'),
         ];
     }
@@ -39,6 +39,22 @@ class GooglePlacesNearbySearchRequest extends Request implements HasBody
         return [
             'includedPrimaryTypes' => ['restaurant'],
             'includedTypes' => ['diner'],
+            'excludedTypes' => [
+                'sandwich_shop',
+                'breakfast_restaurant',
+                'brunch_restaurant',
+                'breakfast_restaurant',
+                'fast_food_restaurant',
+                'store',
+                'food_store',
+                'bakery',
+                'wholesaler',
+                'cafe',
+                'pub',
+                'bar',
+                'meal_takeaway',
+                'meal_delivery',
+            ],
             'locationRestriction' => [
                 'circle' => [
                     'center' => [

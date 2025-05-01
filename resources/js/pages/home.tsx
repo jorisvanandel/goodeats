@@ -103,13 +103,13 @@ export default function Home() {
                 </AuthenticatedLayoutHeader>
 
                 <div className="grid gap-4">
-                    <Link prefetch="mount" href={route('search')} className="bg-muted border-border col-span-full rounded-lg border px-4 py-3">
+                    <Link prefetch="mount" href={route('search')} className="bg-muted/50 border-border col-span-full rounded-lg border px-4 py-3">
                         <TextHeading size="sm">Ervaringen toevoegen</TextHeading>
                         <TextParagraph size="sm" className="text-muted-foreground">
                             Zoek restaurants en geef aan of je er geweest bent of nog naar toe wilt.
                         </TextParagraph>
                     </Link>
-                    <Link prefetch="mount" href={route('search', { tab: 'users' })} className="bg-muted border-border rounded-lg border px-4 py-3">
+                    <Link prefetch="mount" href={route('search', { tab: 'users' })} className="bg-muted/50 border-border rounded-lg border px-4 py-3">
                         <TextHeading size="sm">Vrienden zoeken</TextHeading>
                         <TextParagraph size="sm" className="text-muted-foreground">
                             Anders is het ook maar zo stil hier.

@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  * @property Restaurant $restaurant
  * @property User $user
  * @property EngagementType $type
+ * @property int|null $rating
  */
 class Engagement extends Pivot
 {
@@ -22,6 +23,7 @@ class Engagement extends Pivot
 
     protected $fillable = [
         'type',
+        'rating',
     ];
 
     public function casts(): array

@@ -37,6 +37,7 @@ class Restaurant extends Model implements HasMedia
         'name',
         'city',
         'address',
+        'tags',
     ];
 
     /**
@@ -46,6 +47,7 @@ class Restaurant extends Model implements HasMedia
     {
         return [
             'city' => City::class,
+            'tags' => 'array',
         ];
     }
 

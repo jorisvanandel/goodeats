@@ -26,23 +26,24 @@ class SyncRestaurantWithGooglePlaceJob implements ShouldQueue
             'name' => $this->data['displayName']['text'],
             'city' => $this->city,
             'address' => $this->data['shortFormattedAddress'],
+            'tags' => $this->data['types'],
         ]);
 
-        $restaurant->clearMediaCollection('images');
+//        $restaurant->clearMediaCollection('images');
+//
+//        $connector = app(GooglePlacesApiConnector::class);
+//
+//        foreach (array_slice($this->data['photos'] ?? [], 0, 5) as $photo) {
+//            try {
+//                $response = $connector->send(new GooglePlacesPhotoRequest($photo['name']));
+//            } catch (\Exception $e) {
+//                report($e);
 
-        $connector = app(GooglePlacesApiConnector::class);
-
-        foreach (array_slice($this->data['photos'] ?? [], 0, 5) as $photo) {
-            try {
-                $response = $connector->send(new GooglePlacesPhotoRequest($photo['name']));
-            } catch (\Exception $e) {
-                report($e);
-
-                continue;
-            }
-
-            $restaurant->addMediaFromUrl($response->json('photoUri'))
-                ->toMediaCollection('images');
-        }
+//                continue;
+//            }
+//
+//            $restaurant->addMediaFromUrl($response->json('photoUri'))
+//                ->toMediaCollection('images');
+//        }
     }
 }

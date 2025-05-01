@@ -40,6 +40,7 @@ class PerformGooglePlacesNearbySearchRequestJob implements ShouldQueue
         try {
             $places = $placesResponse->json('places') ?? [];
 
+            dd($places);
             if (count($places) === 20) {
                 $this->fail('More than 20 places found. Search radius should be narrowed.');
             }

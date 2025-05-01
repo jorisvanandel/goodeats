@@ -69,7 +69,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     public function engagements(): BelongsToMany
     {
         return $this->belongsToMany(Restaurant::class, 'engagements')
-            ->withPivot(['type'])
+            ->withPivot(['type', 'rating'])
             ->using(Engagement::class);
     }
 

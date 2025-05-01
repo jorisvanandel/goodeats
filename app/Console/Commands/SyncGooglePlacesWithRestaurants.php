@@ -3,13 +3,12 @@
 namespace App\Console\Commands;
 
 use App\Enums\City;
-use App\Jobs\PerformGooglePlacesNearbySearchRequestJob;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Command\Command as SymfonyCommand;
 
 class SyncGooglePlacesWithRestaurants extends Command
 {
-    private const SEARCH_RADIUS = 150;
+    private const SEARCH_RADIUS = 250;
 
     /**
      * @var string

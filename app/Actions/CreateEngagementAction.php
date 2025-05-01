@@ -14,7 +14,7 @@ class CreateEngagementAction
     /**
      * @throws CannotCreateEngagementException
      */
-    public function execute(Restaurant $restaurant, User $user, EngagementType $type): void
+    public function execute(Restaurant $restaurant, User $user, EngagementType $type, ?int $rating = null): void
     {
         if ($user->engagements()->where('restaurant_id', $restaurant->id)->where('type', $type)->exists()) {
             throw CannotCreateEngagementException::becauseUserAlreadyHasEngagement();
@@ -22,6 +22,7 @@ class CreateEngagementAction
 
         $user->engagements()->attach($restaurant, [
             'type' => $type,
+            'rating' => $rating,
         ]);
     }
 }

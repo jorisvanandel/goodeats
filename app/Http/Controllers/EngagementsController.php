@@ -23,7 +23,7 @@ class EngagementsController extends Controller
         CreateEngagementAction $action,
         #[CurrentUser] $user
     ): RedirectResponse {
-        $action->execute($request->restaurant(), $user, $request->type());
+        $action->execute($request->restaurant(), $user, $request->type(), $request->rating());
 
         return $this->redirector->back();
     }

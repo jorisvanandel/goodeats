@@ -1,3 +1,4 @@
+import { AddVisitEngagementDrawer } from '@/components/add-visit-engagement-drawer';
 import { Button } from '@/components/ui/button';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import { TextHeading, TextParagraph } from '@/components/ui/text';
@@ -6,6 +7,7 @@ import { EngagementType } from '@/types/enums';
 import { Restaurant } from '@/types/resources';
 import { router } from '@inertiajs/react';
 import { BookmarkIcon, CheckIcon, HeartIcon, ImageOffIcon } from 'lucide-react';
+import { useState } from 'react';
 import { toast } from 'sonner';
 
 type RestaurantPageProps = {
@@ -15,21 +17,29 @@ type RestaurantPageProps = {
 };
 
 export default function RestaurantPage({ restaurant, visited, bookmarked }: RestaurantPageProps) {
-    function addEngagement(type: EngagementType) {
+    function addBookmark() {
         router.post(
-            route('engagements.store', { restaurant_id: restaurant.id, type: type }),
+            route('engagements.store', { restaurant_id: restaurant.id, type: EngagementType.Bookmark }),
             {},
             {
-                onSuccess: () => toast('Je voorkeur voor dit restaurant is aangepast.'),
+                onSuccess: () => toast('Je hebt aangegeven dat je hier nog heen wilt.'),
             },
         );
     }
 
-    function removeEngagement(type: EngagementType) {
-        router.delete(route('engagements.destroy', { restaurant_id: restaurant.id, type: type }), {
-            onSuccess: () => toast('Je voorkeur voor dit restaurant is aangepast.'),
+    function removeBookmark() {
+        router.delete(route('engagements.destroy', { restaurant_id: restaurant.id, type: EngagementType.Bookmark }), {
+            onSuccess: () => toast('Je hebt aangegeven dat je hier niet meer heen wilt.'),
         });
     }
+
+    function removeVisit() {
+        router.delete(route('engagements.destroy', { restaurant_id: restaurant.id, type: EngagementType.Visit }), {
+            onSuccess: () => toast('Je hebt aangegeven dat je hier niet meer heen wilt.'),
+        });
+    }
+
+    const [addVisitDrawerOpen, setAddVisitDrawerOpen] = useState<boolean>(true);
 
     return (
         <AuthenticatedLayout>
@@ -70,23 +80,23 @@ export default function RestaurantPage({ restaurant, visited, bookmarked }: Rest
                     </div>
                 </div>
                 <div className="border-border grid gap-y-2 border-t p-2">
-                    <Button
-                        variant={visited ? 'outline' : 'default'}
-                        onClick={() => (visited ? removeEngagement(EngagementType.Visit) : addEngagement(EngagementType.Visit))}
-                    >
+                    <Button variant={visited ? 'outline' : 'default'} onClick={() => (visited ? removeVisit() : setAddVisitDrawerOpen(true))}>
                         {visited ? <CheckIcon /> : <HeartIcon />}
                         Ben ik geweest
                     </Button>
 
                     <Button
+                        disabled={visited}
                         variant={bookmarked ? 'outline' : 'secondary'}
-                        onClick={() => (bookmarked ? removeEngagement(EngagementType.Bookmark) : addEngagement(EngagementType.Bookmark))}
+                        onClick={() => (bookmarked ? addBookmark() : removeBookmark())}
                     >
                         {bookmarked ? <CheckIcon /> : <BookmarkIcon />}
                         Wil ik naar toe
                     </Button>
                 </div>
             </div>
+
+            <AddVisitEngagementDrawer open={addVisitDrawerOpen} onOpenChange={setAddVisitDrawerOpen} restaurant={restaurant} />
         </AuthenticatedLayout>
     );
 }
