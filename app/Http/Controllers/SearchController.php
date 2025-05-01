@@ -24,7 +24,7 @@ class SearchController extends Controller
                 fn (Builder $query) => $query->whereLike('name', "%{$request->searchQuery()}%")
             )
             ->with(['media'])
-            ->paginate(10);
+            ->paginate(5);
 
         $users = User::query()
             ->where('id', '!=', $user->id)
@@ -32,7 +32,7 @@ class SearchController extends Controller
                 $request->searchQuery() !== null,
                 fn (Builder $query) => $query->whereAny(['name', 'username'], 'LIKE', "%{$request->searchQuery()}%")
             )
-            ->paginate(15);
+            ->paginate(10);
 
         return Inertia::render('search', [
             'restaurants' => Inertia::defer(fn () => EngagedRestaurantResource::collection($restaurants)),
