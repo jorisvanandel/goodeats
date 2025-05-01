@@ -43,49 +43,18 @@ function FeedbackDrawer({ onOpenChange, ...props }: React.ComponentProps<typeof 
                             value={data.feedback}
                             onChange={(e) => setData('feedback', e.target.value)}
                             className="min-h-24"
-                            placeholder="Geef hier aan wat GoodEats nóg beter zou maken."
+                            placeholder="Geef hier aan wat GoodEats nog beter zou maken."
                         />
                         <InputError message={errors.feedback} />
                     </form>
                 </div>
                 <DrawerFooter>
                     <Button type="submit" form="feedback-form">
-                        Feedback delen
+                        Versturen
                     </Button>
                 </DrawerFooter>
             </DrawerContent>
         </Drawer>
-    );
-}
-
-function Banner({ onActionClick }: { onActionClick: () => void }) {
-    return (
-        <div className="relative isolate flex items-center gap-x-6 overflow-hidden bg-gray-50 px-6 py-2.5 sm:px-3.5">
-            <div aria-hidden="true" className="absolute top-1/2 left-[max(-7rem,calc(50%-52rem))] -z-10 -translate-y-1/2 transform-gpu blur-2xl">
-                <div
-                    style={{
-                        clipPath:
-                            'polygon(74.8% 41.9%, 97.2% 73.2%, 100% 34.9%, 92.5% 0.4%, 87.5% 0%, 75% 28.6%, 58.5% 54.6%, 50.1% 56.8%, 46.9% 44%, 48.3% 17.4%, 24.7% 53.9%, 0% 27.9%, 11.9% 74.2%, 24.9% 54.1%, 68.6% 100%, 74.8% 41.9%)',
-                    }}
-                    className="aspect-577/310 w-[36.0625rem] bg-linear-to-r from-[#ff80b5] to-[#9089fc] opacity-30"
-                />
-            </div>
-            <div aria-hidden="true" className="absolute top-1/2 left-[max(45rem,calc(50%+8rem))] -z-10 -translate-y-1/2 transform-gpu blur-2xl">
-                <div
-                    style={{
-                        clipPath:
-                            'polygon(74.8% 41.9%, 97.2% 73.2%, 100% 34.9%, 92.5% 0.4%, 87.5% 0%, 75% 28.6%, 58.5% 54.6%, 50.1% 56.8%, 46.9% 44%, 48.3% 17.4%, 24.7% 53.9%, 0% 27.9%, 11.9% 74.2%, 24.9% 54.1%, 68.6% 100%, 74.8% 41.9%)',
-                    }}
-                    className="aspect-577/310 w-[36.0625rem] bg-linear-to-r from-[#ff80b5] to-[#9089fc] opacity-30"
-                />
-            </div>
-            <p className="text-sm/6 text-gray-900">
-                Heb je feedback of ideeën over hoe we GoodEats nog beter kunnen maken?{' '}
-                <button onClick={onActionClick} className="font-semibold whitespace-nowrap">
-                    Laat je horen!&nbsp;<span aria-hidden="true">&rarr;</span>
-                </button>
-            </p>
-        </div>
     );
 }
 
@@ -96,25 +65,29 @@ export default function Home() {
 
     return (
         <AuthenticatedLayout title="Home">
-            <Banner onActionClick={() => setFeedbackDrawerOpen(true)} />
             <AuthenticatedLayoutContent>
                 <AuthenticatedLayoutHeader>
                     <AuthenticatedLayoutTitle>Welkom terug, {auth.user.name}</AuthenticatedLayoutTitle>
                 </AuthenticatedLayoutHeader>
 
                 <div className="grid gap-4">
-                    <Link prefetch="mount" href={route('search')} className="bg-muted/50 border-border col-span-full rounded-lg border px-4 py-3">
-                        <TextHeading size="sm">Ervaringen toevoegen</TextHeading>
-                        <TextParagraph size="sm" className="text-muted-foreground">
-                            Zoek restaurants en geef aan of je er geweest bent of nog naar toe wilt.
+                    <div className="bg-gradient-to-tr from-fuchsia-100 to-pink-100 rounded-lg px-4 py-3">
+                        <TextHeading size="sm">Heb je feedback?</TextHeading>
+                        <TextParagraph size="sm">
+                            Help ons GoodEats te verbeteren door je ideën of feedback te delen met ons.
                         </TextParagraph>
-                    </Link>
-                    <Link prefetch="mount" href={route('search', { tab: 'users' })} className="bg-muted/50 border-border rounded-lg border px-4 py-3">
-                        <TextHeading size="sm">Vrienden zoeken</TextHeading>
-                        <TextParagraph size="sm" className="text-muted-foreground">
-                            Anders is het ook maar zo stil hier.
-                        </TextParagraph>
-                    </Link>
+                        <div className="mt-2">
+                            <Button onClick={() => setFeedbackDrawerOpen(true)} size="sm" className="rounded-full bg-zinc-950 hover:bg-zinc-800">Feedback delen</Button>
+                        </div>
+                    </div>
+                    <div className="grid gap-2">
+                        <Link prefetch="mount" href={route('search')}>
+                            <TextHeading size="sm">Restaurants toevoegen &rarr;</TextHeading>
+                        </Link>
+                        <Link prefetch="mount" href={route('search', { tab: 'users' })}>
+                            <TextHeading size="sm">Vrienden toevoegen &rarr;</TextHeading>
+                        </Link>
+                    </div>
                 </div>
 
                 <div className="mt-8">

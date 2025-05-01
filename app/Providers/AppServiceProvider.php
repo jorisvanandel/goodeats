@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Vite::useAggressivePrefetching();
-//        URL::forceHttps();
+        URL::forceHttps();
         Date::use(CarbonImmutable::class);
         DB::prohibitDestructiveCommands(app()->isProduction());
         Model::shouldBeStrict();

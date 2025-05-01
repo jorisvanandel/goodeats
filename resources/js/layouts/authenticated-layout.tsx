@@ -17,7 +17,7 @@ type NavigationItem = {
 type AuthenticatedLayoutProps = PropsWithChildren & { title?: string };
 
 function AuthenticatedLayoutContent({ className, ...props }: React.ComponentProps<'div'>) {
-    return <div className={cn('relative flex-grow overflow-y-scroll px-4 py-8', className)} {...props} />;
+    return <div className={cn('relative flex-grow overflow-y-scroll px-4 py-5', className)} {...props} />;
 }
 
 function AuthenticatedLayoutHeader({ className, ...props }: React.ComponentProps<'div'>) {
@@ -65,7 +65,7 @@ function AuthenticatedLayout({ title, children }: AuthenticatedLayoutProps) {
                             prefetch="mount"
                             key={itemIdx}
                             className={cn(
-                                'flex h-16 flex-col items-center border-t-3 py-3',
+                                'flex flex-col items-center border-t-3 py-2.5',
                                 item.active ? 'border-t-primary text-primary' : 'border-t-transparent',
                             )}
                             href={item.href}
