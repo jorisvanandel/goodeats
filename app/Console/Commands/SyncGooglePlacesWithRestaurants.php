@@ -7,11 +7,12 @@ use App\Jobs\PerformGooglePlacesNearbySearchRequestJob;
 use App\Models\Pivot\Engagement;
 use App\Models\Restaurant;
 use Illuminate\Console\Command;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\Console\Command\Command as SymfonyCommand;
 
 class SyncGooglePlacesWithRestaurants extends Command
 {
-    private const SEARCH_RADIUS = 250;
+    private const SEARCH_RADIUS = 200;
 
     /**
      * @var string
@@ -34,6 +35,7 @@ class SyncGooglePlacesWithRestaurants extends Command
         $requestCnt = 1;
 
         if ($this->option('flush')) {
+            Media::query()->delete();
             Engagement::query()->delete();
             Restaurant::query()->delete();
         }

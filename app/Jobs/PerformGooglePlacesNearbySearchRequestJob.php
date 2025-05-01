@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\Connectors\GooglePlacesApiConnector;
 use App\Enums\City;
 use App\Exceptions\GooglePlacesNearbySearchRequestException;
+use App\Models\Restaurant;
 use App\Requests\GooglePlacesNearbySearchRequest;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
@@ -50,6 +51,10 @@ class PerformGooglePlacesNearbySearchRequestJob implements ShouldQueue
             }
 
             foreach ($places as $place) {
+                if (Restaurant::query()->where('google_place_id', $place['id'])->exists()) {
+                    continue;
+                }
+
                 SyncRestaurantWithGooglePlaceJob::dispatch($place, $this->city);
             }
         } catch (\JsonException) {

@@ -29,7 +29,7 @@ class GooglePlacesNearbySearchRequest extends Request implements HasBody
     protected function defaultHeaders(): array
     {
         return [
-            'X-Goog-FieldMask' => 'places.id,places.displayName,places.shortFormattedAddress,places.types',
+            'X-Goog-FieldMask' => 'places.id,places.displayName,places.shortFormattedAddress,places.types,places.photos',
             'X-Goog-Api-Key' => config('services.google.api_key'),
         ];
     }
