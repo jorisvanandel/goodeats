@@ -82,7 +82,7 @@ export default function Account({ user, followers, followings }: AccountPageProp
                         <TabsTrigger value="followers">Volgers</TabsTrigger>
                         <TabsTrigger value="following">Volgend</TabsTrigger>
                     </TabsList>
-                    <TabsContent className="mt-4 px-3" value="followers">
+                    <TabsContent className="mt-4" value="followers">
                         <div className="divide-divide divide-y">
                             {followers.data.map((user) => (
                                 <UserCard key={user.id} user={user} />
@@ -94,7 +94,7 @@ export default function Account({ user, followers, followings }: AccountPageProp
                             </TextParagraph>
                         )}
                     </TabsContent>
-                    <TabsContent className="mt-4 px-3" value="following">
+                    <TabsContent className="mt-4" value="following">
                         <div className="divide-divide divide-y">
                             {followings.data.map((user) => (
                                 <UserCard key={user.id} user={user} />
