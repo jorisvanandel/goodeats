@@ -51,7 +51,7 @@ class PerformGooglePlacesNearbySearchRequestJob implements ShouldQueue
             }
 
             foreach ($places as $place) {
-                if (Restaurant::query()->where('google_place_id', $place['id'])->exists()) {
+                if (Restaurant::query()->where('google_places_id', $place['id'])->exists()) {
                     continue;
                 }
 
