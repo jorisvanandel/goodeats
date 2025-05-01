@@ -20,9 +20,7 @@ class RegisteredUserController extends Controller
 {
     public function __construct(
         private readonly Redirector $redirector,
-    )
-    {
-    }
+    ) {}
 
     public function create(): Response
     {

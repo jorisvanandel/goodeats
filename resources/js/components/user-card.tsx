@@ -1,8 +1,8 @@
+import { Button } from '@/components/ui/button';
 import { TextHeading, TextParagraph } from '@/components/ui/text';
 import { UserAvatar } from '@/components/user-avatar';
 import { EngagedUser, User } from '@/types/resources';
 import { Link, router } from '@inertiajs/react';
-import { Button } from '@/components/ui/button';
 import { CheckIcon } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -18,12 +18,16 @@ export function UserCard({ user }: UserCardProps) {
 
         if (user.following) {
             router.delete(route('followings.destroy', { user_id: user.id }), {
-                onSuccess: () => toast.success(`Je volgt ${user.name} niet meer.`)
+                onSuccess: () => toast.success(`Je volgt ${user.name} niet meer.`),
             });
         } else {
-            router.post(route('followings.store', { user_id: user.id }), {}, {
-                onSuccess: () => toast.success(`Je bent ${user.name} gaan volgen!`)
-            });
+            router.post(
+                route('followings.store', { user_id: user.id }),
+                {},
+                {
+                    onSuccess: () => toast.success(`Je bent ${user.name} gaan volgen!`),
+                },
+            );
         }
     }
 
@@ -40,7 +44,7 @@ export function UserCard({ user }: UserCardProps) {
             </Link>
             {'following' in user && (
                 <Button size="sm" variant="outline" onClick={toggleFollowing}>
-                    {user.following && <CheckIcon/>}
+                    {user.following && <CheckIcon />}
                     {user.following ? 'Volgend' : 'Volgen'}
                 </Button>
             )}

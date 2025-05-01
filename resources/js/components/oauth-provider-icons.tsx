@@ -21,6 +21,4 @@ function GoogleIcon({ ...props }: React.ComponentProps<'svg'>) {
     );
 }
 
-export {
-    GoogleIcon,
-}
+export { GoogleIcon };

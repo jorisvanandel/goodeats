@@ -1,6 +1,6 @@
-import { PropsWithChildren } from 'react';
-import { Head } from '@inertiajs/react';
 import { Toaster } from '@/components/ui/sonner';
+import { Head } from '@inertiajs/react';
+import { PropsWithChildren } from 'react';
 
 type RootLayoutProps = PropsWithChildren & { title?: string };
 
@@ -8,11 +8,9 @@ function RootLayout({ children, title }: RootLayoutProps) {
     return (
         <>
             <Head title={title}>
-                <meta name="description"
-                      content="GoodEats - Dé nieuwe plek om culinaire hotspots te delen met je vrienden!" />
+                <meta name="description" content="GoodEats - Dé nieuwe plek om culinaire hotspots te delen met je vrienden!" />
                 <meta name="robots" content="index, follow" />
-                <meta property="og:title"
-                      content="GoodEats - Dé nieuwe plek om culinaire hotspots te delen met je vrienden!" />
+                <meta property="og:title" content="GoodEats - Dé nieuwe plek om culinaire hotspots te delen met je vrienden!" />
                 <meta property="og:image" content="/logo.png" />
                 <meta property="og:url" content="https://www.goodeats.nl" />
 
@@ -24,9 +22,7 @@ function RootLayout({ children, title }: RootLayoutProps) {
             {children}
             <Toaster position="top-center" />
         </>
-    )
+    );
 }
 
-export {
-    RootLayout,
-}
+export { RootLayout };

@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use App\Http\Resources\UserResource;
-use Illuminate\Foundation\Inspiring;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;

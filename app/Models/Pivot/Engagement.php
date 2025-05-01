@@ -21,7 +21,7 @@ class Engagement extends Pivot
     protected $table = 'engagements';
 
     protected $fillable = [
-        'type'
+        'type',
     ];
 
     public function casts(): array

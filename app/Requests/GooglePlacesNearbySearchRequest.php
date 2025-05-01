@@ -19,9 +19,7 @@ class GooglePlacesNearbySearchRequest extends Request implements HasBody
         private readonly float $latitude,
         private readonly float $longitude,
         private readonly int $radius
-    )
-    {
-    }
+    ) {}
 
     public function resolveEndpoint(): string
     {
@@ -49,7 +47,7 @@ class GooglePlacesNearbySearchRequest extends Request implements HasBody
                     ],
                     'radius' => $this->radius,
                 ],
-            ]
+            ],
         ];
     }
 }

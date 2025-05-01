@@ -13,16 +13,16 @@ use Inertia\Response;
 
 class ViewProfileController extends Controller
 {
-    public function __invoke(User $user, #[CurrentUser] User|null $currentUser): Response
+    public function __invoke(User $user, #[CurrentUser] ?User $currentUser): Response
     {
         $user->load('engagements');
 
         $engagements = $user->engagements()->paginate(10);
 
         return Inertia::render('profile', [
-            'engagements'       => RestaurantResource::collection($engagements),
-            'user'              => UserResource::make($user),
-            'following'         => $currentUser?->follows($user)
+            'engagements' => RestaurantResource::collection($engagements),
+            'user' => UserResource::make($user),
+            'following' => $currentUser?->follows($user),
         ]);
     }
 }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\FinishProfileRequest;
-use App\Http\Resources\RestaurantResource;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Container\Attributes\CurrentUser;
@@ -18,14 +17,12 @@ class FinishProfileController extends Controller
 {
     public function __construct(
         private readonly Redirector $redirector,
-    )
-    {
-    }
+    ) {}
 
     public function show(#[CurrentUser] User $user): Response
     {
         return Inertia::render('finish-profile', [
-            'user'        => UserResource::make($user),
+            'user' => UserResource::make($user),
         ]);
     }
 

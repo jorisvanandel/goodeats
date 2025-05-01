@@ -16,14 +16,12 @@ class FollowingsController extends Controller
 {
     public function __construct(
         private readonly Redirector $redirector
-    )
-    {
-    }
+    ) {}
 
     public function store(
-        AddFollowingRequest   $request,
+        AddFollowingRequest $request,
         CreateFollowingAction $action,
-        #[CurrentUser]        $user
+        #[CurrentUser] $user
     ): RedirectResponse {
         $action->execute($user, $request->following());
 
@@ -32,8 +30,8 @@ class FollowingsController extends Controller
 
     public function destroy(
         RemoveFollowingRequest $request,
-        RemoveFollowingAction  $action,
-        #[CurrentUser]         $user
+        RemoveFollowingAction $action,
+        #[CurrentUser] $user
     ): RedirectResponse {
         $action->execute($user, $request->following());
 

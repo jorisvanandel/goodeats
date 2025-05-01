@@ -1,11 +1,11 @@
 import { Button } from '@/components/ui/button';
 import { TextHeading, TextParagraph } from '@/components/ui/text';
+import { RootLayout } from '@/layouts/root-layout';
 import { cn } from '@/lib/utils';
 import { Link } from '@inertiajs/react';
 import { ChevronLeft, HomeIcon, ListIcon, type LucideIcon, SearchIcon, UserIcon } from 'lucide-react';
 import { type PropsWithChildren } from 'react';
 import { useRoute } from 'ziggy-js';
-import { RootLayout } from '@/layouts/root-layout';
 
 type NavigationItem = {
     label: string;

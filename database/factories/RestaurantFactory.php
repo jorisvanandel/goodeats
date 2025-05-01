@@ -4,10 +4,7 @@ namespace Database\Factories;
 
 use App\Enums\City;
 use App\Models\Restaurant;
-use Closure;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
 
 /**

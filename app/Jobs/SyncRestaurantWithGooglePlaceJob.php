@@ -5,14 +5,9 @@ namespace App\Jobs;
 use App\Connectors\GooglePlacesApiConnector;
 use App\Enums\City;
 use App\Models\Restaurant;
-use App\Requests\GooglePlacesNearbySearchRequest;
 use App\Requests\GooglePlacesPhotoRequest;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Foundation\Queue\Queueable;
-use Saloon\Exceptions\Request\FatalRequestException;
-use Saloon\Exceptions\Request\RequestException;
-use Saloon\Exceptions\SaloonException;
 
 class SyncRestaurantWithGooglePlaceJob implements ShouldQueue
 {
@@ -21,9 +16,7 @@ class SyncRestaurantWithGooglePlaceJob implements ShouldQueue
     public function __construct(
         private readonly array $data,
         private readonly City $city,
-    ) {
-
-    }
+    ) {}
 
     public function handle(): void
     {
@@ -32,7 +25,7 @@ class SyncRestaurantWithGooglePlaceJob implements ShouldQueue
         ], [
             'name' => $this->data['displayName']['text'],
             'city' => $this->city,
-            'address' => $this->data['shortFormattedAddress']
+            'address' => $this->data['shortFormattedAddress'],
         ]);
 
         $restaurant->clearMediaCollection('images');
@@ -44,6 +37,7 @@ class SyncRestaurantWithGooglePlaceJob implements ShouldQueue
                 $response = $connector->send(new GooglePlacesPhotoRequest($photo['name']));
             } catch (\Exception $e) {
                 report($e);
+
                 continue;
             }
 

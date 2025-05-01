@@ -18,9 +18,7 @@ class PerformGooglePlacesNearbySearchRequestJob implements ShouldQueue
         private readonly float $longitude,
         private readonly int $radius,
         private readonly City $city,
-    ) {
-
-    }
+    ) {}
 
     public function handle(): void
     {
@@ -35,6 +33,7 @@ class PerformGooglePlacesNearbySearchRequestJob implements ShouldQueue
             } else {
                 $this->fail($e);
             }
+
             return;
         }
 

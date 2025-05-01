@@ -12,16 +12,15 @@ use Inertia\Response;
 
 class AccountController extends Controller
 {
-
     public function __invoke(#[CurrentUser] User $user): Response
     {
         $followers = $user->followers()->paginate(10);
         $followings = $user->followings()->paginate(10);
 
         return Inertia::render('account', [
-            'user'        => UserResource::make($user),
-            'followers'   => UserResource::collection($followers),
-            'followings'  => UserResource::collection($followings),
+            'user' => UserResource::make($user),
+            'followers' => UserResource::collection($followers),
+            'followings' => UserResource::collection($followings),
         ]);
     }
 }

@@ -1,31 +1,19 @@
-import {
-    AuthenticatedLayout,
-    AuthenticatedLayoutContent,
-    AuthenticatedLayoutHeader,
-    AuthenticatedLayoutTitle
-} from '@/layouts/authenticated-layout';
-import { Link, useForm, usePage } from '@inertiajs/react';
-import type { SharedData } from '@/types';
-import { TextHeading, TextParagraph } from '@/components/ui/text';
-import {
-    Drawer,
-    DrawerContent,
-    DrawerDescription,
-    DrawerFooter,
-    DrawerHeader,
-    DrawerTitle,
-} from '@/components/ui/drawer';
+import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
-import { Textarea } from "@/components/ui/textarea"
+import { Drawer, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle } from '@/components/ui/drawer';
+import { TextHeading, TextParagraph } from '@/components/ui/text';
+import { Textarea } from '@/components/ui/textarea';
+import { AuthenticatedLayout, AuthenticatedLayoutContent, AuthenticatedLayoutHeader, AuthenticatedLayoutTitle } from '@/layouts/authenticated-layout';
+import type { SharedData } from '@/types';
+import { Link, useForm, usePage } from '@inertiajs/react';
 import { FormEvent, useState } from 'react';
 import { toast } from 'sonner';
-import InputError from '@/components/input-error';
 
-function FeedbackDrawer({ onOpenChange, ...props } : React.ComponentProps<typeof Drawer>) {
+function FeedbackDrawer({ onOpenChange, ...props }: React.ComponentProps<typeof Drawer>) {
     const { data, setData, post, errors, reset } = useForm<{
         feedback: string;
     }>({
-        feedback: ''
+        feedback: '',
     });
 
     function handleOnSubmit(e: FormEvent<HTMLFormElement>) {
@@ -38,7 +26,7 @@ function FeedbackDrawer({ onOpenChange, ...props } : React.ComponentProps<typeof
 
                 reset();
                 toast.success('Je feedback is goed ontvangen. Enorm bedankt!');
-            }
+            },
         });
     }
 
@@ -51,7 +39,12 @@ function FeedbackDrawer({ onOpenChange, ...props } : React.ComponentProps<typeof
                 </DrawerHeader>
                 <div className="px-4">
                     <form id="feedback-form" onSubmit={handleOnSubmit}>
-                        <Textarea value={data.feedback} onChange={(e) => setData('feedback', e.target.value)} className="min-h-24" placeholder="Geef hier aan wat GoodEats nóg beter zou maken." />
+                        <Textarea
+                            value={data.feedback}
+                            onChange={(e) => setData('feedback', e.target.value)}
+                            className="min-h-24"
+                            placeholder="Geef hier aan wat GoodEats nóg beter zou maken."
+                        />
                         <InputError message={errors.feedback} />
                     </form>
                 </div>
@@ -62,17 +55,13 @@ function FeedbackDrawer({ onOpenChange, ...props } : React.ComponentProps<typeof
                 </DrawerFooter>
             </DrawerContent>
         </Drawer>
-    )
+    );
 }
 
-function Banner({ onActionClick }: { onActionClick: () => void; }) {
+function Banner({ onActionClick }: { onActionClick: () => void }) {
     return (
-        <div
-            className="relative isolate flex items-center gap-x-6 overflow-hidden bg-gray-50 px-6 py-2.5 sm:px-3.5">
-            <div
-                aria-hidden="true"
-                className="absolute top-1/2 left-[max(-7rem,calc(50%-52rem))] -z-10 -translate-y-1/2 transform-gpu blur-2xl"
-            >
+        <div className="relative isolate flex items-center gap-x-6 overflow-hidden bg-gray-50 px-6 py-2.5 sm:px-3.5">
+            <div aria-hidden="true" className="absolute top-1/2 left-[max(-7rem,calc(50%-52rem))] -z-10 -translate-y-1/2 transform-gpu blur-2xl">
                 <div
                     style={{
                         clipPath:
@@ -81,10 +70,7 @@ function Banner({ onActionClick }: { onActionClick: () => void; }) {
                     className="aspect-577/310 w-[36.0625rem] bg-linear-to-r from-[#ff80b5] to-[#9089fc] opacity-30"
                 />
             </div>
-            <div
-                aria-hidden="true"
-                className="absolute top-1/2 left-[max(45rem,calc(50%+8rem))] -z-10 -translate-y-1/2 transform-gpu blur-2xl"
-            >
+            <div aria-hidden="true" className="absolute top-1/2 left-[max(45rem,calc(50%+8rem))] -z-10 -translate-y-1/2 transform-gpu blur-2xl">
                 <div
                     style={{
                         clipPath:
@@ -100,7 +86,7 @@ function Banner({ onActionClick }: { onActionClick: () => void; }) {
                 </button>
             </p>
         </div>
-    )
+    );
 }
 
 export default function Home() {
@@ -110,27 +96,32 @@ export default function Home() {
 
     return (
         <AuthenticatedLayout title="Home">
-            <Banner onActionClick={() => setFeedbackDrawerOpen(true)}/>
+            <Banner onActionClick={() => setFeedbackDrawerOpen(true)} />
             <AuthenticatedLayoutContent>
                 <AuthenticatedLayoutHeader>
                     <AuthenticatedLayoutTitle>Welkom terug, {auth.user.name}</AuthenticatedLayoutTitle>
                 </AuthenticatedLayoutHeader>
 
                 <div className="grid gap-4">
-                    <Link prefetch="mount" href={route('search')} className="bg-muted border border-border col-span-full rounded-lg px-4 py-3">
+                    <Link prefetch="mount" href={route('search')} className="bg-muted border-border col-span-full rounded-lg border px-4 py-3">
                         <TextHeading size="sm">Ervaringen toevoegen</TextHeading>
-                        <TextParagraph size="sm" className="text-muted-foreground">Zoek restaurants en geef aan of je er geweest bent of nog
-                            naar toe wilt.</TextParagraph>
+                        <TextParagraph size="sm" className="text-muted-foreground">
+                            Zoek restaurants en geef aan of je er geweest bent of nog naar toe wilt.
+                        </TextParagraph>
                     </Link>
-                    <Link prefetch="mount" href={route('search', { tab: 'users' })} className="bg-muted border-border border rounded-lg px-4 py-3">
+                    <Link prefetch="mount" href={route('search', { tab: 'users' })} className="bg-muted border-border rounded-lg border px-4 py-3">
                         <TextHeading size="sm">Vrienden zoeken</TextHeading>
-                        <TextParagraph size="sm" className="text-muted-foreground">Anders is het ook maar zo stil hier.</TextParagraph>
+                        <TextParagraph size="sm" className="text-muted-foreground">
+                            Anders is het ook maar zo stil hier.
+                        </TextParagraph>
                     </Link>
                 </div>
 
                 <div className="mt-8">
                     <TextHeading>Activiteit</TextHeading>
-                    <TextParagraph size="sm" variant="muted">Hier zie je straks wat je vrienden uitspoken!</TextParagraph>
+                    <TextParagraph size="sm" variant="muted">
+                        Hier zie je straks wat je vrienden uitspoken!
+                    </TextParagraph>
                 </div>
 
                 <FeedbackDrawer open={feedbackDrawerOpen} onOpenChange={setFeedbackDrawerOpen} />

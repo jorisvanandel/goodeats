@@ -2,10 +2,10 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\EngagementsController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\FinishProfileController;
 use App\Http\Controllers\FollowingsController;
-use App\Http\Controllers\EngagementsController;
 use App\Http\Controllers\MyListsController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\SearchController;

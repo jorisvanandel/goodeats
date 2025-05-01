@@ -25,9 +25,9 @@ class Restaurant extends Model implements HasMedia
 {
     /** @use HasFactory<RestaurantFactory> */
     use HasFactory;
-    use Notifiable;
-    use InteractsWithMedia;
 
+    use InteractsWithMedia;
+    use Notifiable;
 
     /**
      * @var list<string>

@@ -15,12 +15,14 @@ class SyncGooglePlacesWithRestaurants extends Command
      * @var string
      */
     protected $signature = 'app:sync-google-places-with-restaurants {--city=}';
+
     public function handle(): int
     {
         $city = City::tryFrom($this->option('city'));
 
         if ($city === null) {
             $this->error('Invalid city option provided.');
+
             return SymfonyCommand::FAILURE;
         }
 
@@ -35,7 +37,7 @@ class SyncGooglePlacesWithRestaurants extends Command
             for ($lng = $west; $lng <= $east; $lng += $deltaLng) {
                 PerformGooglePlacesNearbySearchRequestJob::dispatch($lat, $lng, self::SEARCH_RADIUS, $city)
                     ->delay($requestCnt * 10);
-                
+
                 $requestCnt++;
             }
         }

@@ -17,7 +17,7 @@ class AddEngagementRequest extends FormRequest
     {
         return [
             'restaurant_id' => ['required', 'exists:restaurants,id'],
-            'type' => ['required', Rule::enum(EngagementType::class)]
+            'type' => ['required', Rule::enum(EngagementType::class)],
         ];
     }
 

@@ -1,13 +1,13 @@
 import InputError from '@/components/input-error';
+import { GoogleIcon } from '@/components/oauth-provider-icons';
 import { Button } from '@/components/ui/button';
 import { Drawer, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Separator } from '@/components/ui/separator';
 import GuestLayout from '@/layouts/guest-layout';
 import { Link, useForm } from '@inertiajs/react';
 import { FormEvent } from 'react';
-import { Separator } from '@/components/ui/separator';
-import { GoogleIcon } from '@/components/oauth-provider-icons'
 
 type LoginForm = {
     email: string;
@@ -72,7 +72,7 @@ function LoginDrawer() {
                         </div>
                     </form>
 
-                    <div className="py-5 relative flex h-fit items-center">
+                    <div className="relative flex h-fit items-center py-5">
                         <div className="bg-background text-muted-foreground absolute left-1/2 -translate-x-1/2 px-2">Of</div>
                         <Separator className="my-auto" />
                     </div>

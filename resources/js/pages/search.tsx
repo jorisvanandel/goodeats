@@ -1,4 +1,5 @@
 import { RestaurantCard } from '@/components/restaurant-card';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -12,7 +13,6 @@ import { SearchIcon } from 'lucide-react';
 import { ChangeEvent, useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 import { useRoute } from 'ziggy-js';
-import { Button } from '@/components/ui/button';
 
 type SearchPageProps = {
     restaurants: PaginatedCollection<Restaurant> | undefined;
@@ -102,12 +102,18 @@ export default function SearchPage({ restaurants, users }: SearchPageProps) {
                                             {restaurants?.data.map((restaurant) => <RestaurantCard key={restaurant.id} restaurant={restaurant} />)}
                                             <div className="flex justify-between">
                                                 <Button variant="outline" asChild>
-                                                    <Link className={restaurants?.links.prev === null ? 'pointer-events-none opacity-50' : ''} href={restaurants?.links.prev ?? '#'}>
+                                                    <Link
+                                                        className={restaurants?.links.prev === null ? 'pointer-events-none opacity-50' : ''}
+                                                        href={restaurants?.links.prev ?? '#'}
+                                                    >
                                                         Vorige
                                                     </Link>
                                                 </Button>
                                                 <Button variant="outline" asChild>
-                                                    <Link className={restaurants?.links.next === null ? 'pointer-events-none opacity-50' : ''} href={restaurants?.links.next ?? '#'}>
+                                                    <Link
+                                                        className={restaurants?.links.next === null ? 'pointer-events-none opacity-50' : ''}
+                                                        href={restaurants?.links.next ?? '#'}
+                                                    >
                                                         Volgende
                                                     </Link>
                                                 </Button>
@@ -147,12 +153,18 @@ export default function SearchPage({ restaurants, users }: SearchPageProps) {
                                             </div>
                                             <div className="flex justify-between">
                                                 <Button variant="outline" asChild>
-                                                    <Link className={users?.links.prev === null ? 'pointer-events-none opacity-50' : ''} href={restaurants?.links.prev ?? '#'}>
+                                                    <Link
+                                                        className={users?.links.prev === null ? 'pointer-events-none opacity-50' : ''}
+                                                        href={restaurants?.links.prev ?? '#'}
+                                                    >
                                                         Vorige
                                                     </Link>
                                                 </Button>
                                                 <Button variant="outline" asChild>
-                                                    <Link className={users?.links.next === null ? 'pointer-events-none opacity-50' : ''} href={restaurants?.links.next ?? '#'}>
+                                                    <Link
+                                                        className={users?.links.next === null ? 'pointer-events-none opacity-50' : ''}
+                                                        href={restaurants?.links.next ?? '#'}
+                                                    >
                                                         Volgende
                                                     </Link>
                                                 </Button>

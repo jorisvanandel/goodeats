@@ -30,7 +30,7 @@ class SearchController extends Controller
             ->where('id', '!=', $user->id)
             ->when(
                 $request->searchQuery() !== null,
-                fn (Builder $query) => $query->whereAny(['name', 'username'],'LIKE', "%{$request->searchQuery()}%")
+                fn (Builder $query) => $query->whereAny(['name', 'username'], 'LIKE', "%{$request->searchQuery()}%")
             )
             ->paginate();
 

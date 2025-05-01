@@ -14,9 +14,7 @@ class UploadAvatarController extends Controller
 {
     public function __construct(
         private readonly Redirector $redirector
-    )
-    {
-    }
+    ) {}
 
     public function __invoke(UploadAvatarRequest $request, #[CurrentUser] User $user): RedirectResponse
     {

@@ -1,11 +1,11 @@
+import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import { TextHeading, TextParagraph } from '@/components/ui/text';
+import { EngagementType } from '@/types/enums';
 import { EngagedRestaurant, Restaurant } from '@/types/resources';
 import { Link, router } from '@inertiajs/react';
-import { BookmarkIcon, CheckIcon, HeartIcon, ImageOffIcon, StarIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { EngagementType } from '@/types/enums';
+import { BookmarkIcon, CheckIcon, HeartIcon, ImageOffIcon } from 'lucide-react';
 import { toast } from 'sonner';
 
 type RestaurantCardProps = {
@@ -53,7 +53,7 @@ export function RestaurantCard({ restaurant }: RestaurantCardProps) {
                     </CarouselContent>
                 </Carousel>
             </Link>
-            <CardContent className="py-3 px-3">
+            <CardContent className="px-3 py-3">
                 <TextHeading>{restaurant.name}</TextHeading>
                 <TextParagraph variant="muted">{restaurant.address}</TextParagraph>
                 {'bookmarked' in restaurant && 'visited' in restaurant && (
@@ -70,7 +70,9 @@ export function RestaurantCard({ restaurant }: RestaurantCardProps) {
                         <Button
                             size="sm"
                             variant={restaurant.bookmarked ? 'outline' : 'secondary'}
-                            onClick={() => (restaurant.bookmarked ? removeEngagement(EngagementType.Bookmark) : addEngagement(EngagementType.Bookmark))}
+                            onClick={() =>
+                                restaurant.bookmarked ? removeEngagement(EngagementType.Bookmark) : addEngagement(EngagementType.Bookmark)
+                            }
                         >
                             {restaurant.bookmarked ? <CheckIcon /> : <BookmarkIcon />}
                             Wil ik naar toe

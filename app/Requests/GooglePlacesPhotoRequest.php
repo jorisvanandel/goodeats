@@ -11,9 +11,7 @@ class GooglePlacesPhotoRequest extends Request
 {
     public function __construct(
         private readonly string $photoName
-    )
-    {
-    }
+    ) {}
 
     protected Method $method = Method::GET;
 

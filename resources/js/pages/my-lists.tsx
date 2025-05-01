@@ -1,18 +1,18 @@
-import { AuthenticatedLayout, AuthenticatedLayoutContent, AuthenticatedLayoutTitle } from '@/layouts/authenticated-layout';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { TextParagraph } from '@/components/ui/text';
-import { PaginatedCollection } from '@/types/pagination';
-import { Restaurant } from '@/types/resources';
 import { RestaurantCard } from '@/components/restaurant-card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { TextParagraph } from '@/components/ui/text';
+import { AuthenticatedLayout, AuthenticatedLayoutContent, AuthenticatedLayoutTitle } from '@/layouts/authenticated-layout';
+import { PaginatedCollection } from '@/types/pagination';
+import { Restaurant } from '@/types/resources';
 import { Deferred } from '@inertiajs/react';
 
 type EngagementsPageProps = {
     visits: PaginatedCollection<Restaurant>;
     bookmarks: PaginatedCollection<Restaurant>;
-}
+};
 
-export default function EngagementsPage({ visits, bookmarks } : EngagementsPageProps) {
+export default function EngagementsPage({ visits, bookmarks }: EngagementsPageProps) {
     return (
         <AuthenticatedLayout title="Mijn lijsten">
             <AuthenticatedLayoutContent>
@@ -36,9 +36,7 @@ export default function EngagementsPage({ visits, bookmarks } : EngagementsPageP
                                 data="visits"
                             >
                                 <>
-                                    {visits?.data.map((restaurant, restaurantIdx) => (
-                                        <RestaurantCard key={restaurantIdx} restaurant={restaurant} />
-                                    ))}
+                                    {visits?.data.map((restaurant, restaurantIdx) => <RestaurantCard key={restaurantIdx} restaurant={restaurant} />)}
                                     {visits?.data.length === 0 && (
                                         <TextParagraph className="mx-auto max-w-sm text-center" variant="muted">
                                             Deze lijst is nog leeg!

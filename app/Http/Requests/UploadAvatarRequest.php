@@ -14,7 +14,7 @@ class UploadAvatarRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'avatar' => ['nullable', Rule::imageFile()->max(4096) ],
+            'avatar' => ['nullable', Rule::imageFile()->max(4096)],
         ];
     }
 }

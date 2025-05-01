@@ -10,11 +10,11 @@ class CannotFollowUserException extends RuntimeException
 {
     public static function becauseUserIsAlreadyFollowed(): self
     {
-        return new self();
+        return new self;
     }
 
     public static function becauseUserCannotFollowItself(): self
     {
-        return new self();
+        return new self;
     }
 }

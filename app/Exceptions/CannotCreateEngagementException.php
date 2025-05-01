@@ -10,6 +10,6 @@ class CannotCreateEngagementException extends RuntimeException
 {
     public static function becauseUserAlreadyHasEngagement(): self
     {
-        return new self();
+        return new self;
     }
 }

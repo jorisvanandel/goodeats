@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Enums\EngagementType;
-use App\Models\Pivot\Following;
 use App\Models\Pivot\Engagement;
+use App\Models\Pivot\Following;
 use Carbon\Carbon;
 use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -28,12 +28,13 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property-read Carbon $updated_at
  * @property-read Carbon $created_at
  */
-class User extends Authenticatable implements MustVerifyEmail, HasMedia
+class User extends Authenticatable implements HasMedia, MustVerifyEmail
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory;
-    use Notifiable;
+
     use InteractsWithMedia;
+    use Notifiable;
 
     /**
      * @var list<string>

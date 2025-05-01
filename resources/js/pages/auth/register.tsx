@@ -1,4 +1,5 @@
 import InputError from '@/components/input-error';
+import { GoogleIcon } from '@/components/oauth-provider-icons';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -8,7 +9,6 @@ import AuthLayout from '@/layouts/guest-layout';
 import { Link, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEvent } from 'react';
-import { GoogleIcon } from '@/components/oauth-provider-icons'
 
 type RegisterForm = {
     email: string;
@@ -35,7 +35,13 @@ export default function Register() {
                     <TextHeading size="lg">Account aanmaken</TextHeading>
                     <div className="mt-4">
                         <TextParagraph variant="muted">Vul de gegevens hieronder in om een account te registreren.</TextParagraph>
-                        <TextParagraph className="mt-2" variant="muted">Door te registreren ga je akkoord met onze <Link className="text-link" href={route('privacy-policy')}>privacyverklaring</Link>.</TextParagraph>
+                        <TextParagraph className="mt-2" variant="muted">
+                            Door te registreren ga je akkoord met onze{' '}
+                            <Link className="text-link" href={route('privacy-policy')}>
+                                privacyverklaring
+                            </Link>
+                            .
+                        </TextParagraph>
                     </div>
                 </div>
                 <form className="mt-5 flex flex-col gap-6" onSubmit={handleOnSubmit}>

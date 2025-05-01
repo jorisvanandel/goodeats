@@ -48,8 +48,8 @@ export default function RestaurantPage({ restaurant, visited, bookmarked }: Rest
                             ))}
                             {restaurant.images.length === 0 && (
                                 <CarouselItem>
-                                    <div className="h-60 w-full bg-accent flex justify-center items-center">
-                                        <ImageOffIcon className="size-12 text-muted-foreground"/>
+                                    <div className="bg-accent flex h-60 w-full items-center justify-center">
+                                        <ImageOffIcon className="text-muted-foreground size-12" />
                                     </div>
                                 </CarouselItem>
                             )}

@@ -24,12 +24,16 @@ export default function ProfilePage({ user, engagements, following }: ProfilePag
 
         if (following) {
             router.delete(route('followings.destroy', { user_id: user.id }), {
-                onSuccess: () => toast.success(`Je volgt ${user.name} niet meer.`)
+                onSuccess: () => toast.success(`Je volgt ${user.name} niet meer.`),
             });
         } else {
-            router.post(route('followings.store', { user_id: user.id }), {}, {
-                onSuccess: () => toast.success(`Je bent ${user.name} gaan volgen!`)
-            });
+            router.post(
+                route('followings.store', { user_id: user.id }),
+                {},
+                {
+                    onSuccess: () => toast.success(`Je bent ${user.name} gaan volgen!`),
+                },
+            );
         }
     }
 
