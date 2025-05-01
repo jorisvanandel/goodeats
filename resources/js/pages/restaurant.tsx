@@ -53,7 +53,7 @@ export default function RestaurantPage({ restaurant, visited, bookmarked }: Rest
                         <CarouselContent>
                             {restaurant.images.map((image, imageIdx) => (
                                 <CarouselItem key={imageIdx}>
-                                    <img alt={restaurant.name} className="h-60 w-full object-cover" src={image.full_url} />
+                                    <img alt={restaurant.name} className="h-60 w-full object-cover" src={image.full_url} loading="lazy" />
                                 </CarouselItem>
                             ))}
                             {restaurant.images.length === 0 && (
