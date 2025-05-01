@@ -7,7 +7,6 @@ use App\Models\Pivot\Engagement;
 use App\Models\Pivot\Following;
 use Carbon\Carbon;
 use Database\Factories\UserFactory;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -28,7 +27,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property-read Carbon $updated_at
  * @property-read Carbon $created_at
  */
-class User extends Authenticatable implements HasMedia, MustVerifyEmail
+class User extends Authenticatable implements HasMedia
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory;
