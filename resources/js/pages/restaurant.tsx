@@ -39,7 +39,7 @@ export default function RestaurantPage({ restaurant, visited, bookmarked }: Rest
         });
     }
 
-    const [addVisitDrawerOpen, setAddVisitDrawerOpen] = useState<boolean>(true);
+    const [addVisitDrawerOpen, setAddVisitDrawerOpen] = useState<boolean>(false);
 
     return (
         <AuthenticatedLayout>
@@ -88,7 +88,7 @@ export default function RestaurantPage({ restaurant, visited, bookmarked }: Rest
                     <Button
                         disabled={visited}
                         variant={bookmarked ? 'outline' : 'secondary'}
-                        onClick={() => (bookmarked ? addBookmark() : removeBookmark())}
+                        onClick={() => (bookmarked ? removeBookmark() : addBookmark())}
                     >
                         {bookmarked ? <CheckIcon /> : <BookmarkIcon />}
                         Wil ik naar toe
