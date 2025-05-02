@@ -39,6 +39,6 @@ class OAuthController extends Controller
             return redirect(route('finish-profile.show'));
         }
 
-        return $this->redirector->route(route('home'));
+        return $this->redirector->route('home');
     }
 }
